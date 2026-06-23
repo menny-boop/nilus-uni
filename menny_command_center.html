@@ -151,6 +151,12 @@
   .qf-val.red { color: #dc2626; }
   .qf-val.orange { color: #d97706; }
   .qf-val.green { color: #059669; }
+  .battle-inner-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin: -20px -20px 18px; padding: 0 20px; }
+  .battle-inner-tab { padding: 10px 16px; font-size: 12px; font-weight: 500; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .battle-inner-tab:hover { color: var(--text); }
+  .battle-inner-tab.active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
+  .battle-inner-panel { display: none; }
+  .battle-inner-panel.active { display: block; }
 
   /* MAIN AREA */
   #main { flex: 1; overflow-y: auto; padding: 32px; background: var(--bg); }
@@ -1164,11 +1170,17 @@ const COMP_DATA = {
   kyriba: {
     abbr: 'Kyr', name: 'Kyriba', subtitle: 'Enterprise Treasury Management System',
     badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
-    whenToUse: 'Prospect is PE-backed, under $5B revenue, and has been in a Kyriba demo. They\'ll be impressed by the brand but sticker-shocked by the price and timeline. Your job: make the complexity visible before they sign.',
     icp: ['Fortune 500', 'Global multinationals', '$5B+ revenue', 'Complex multi-bank structures', 'Heavy compliance needs'],
-    weaknesses: ['12–18 month implementations — deals drag forever', '$300K–$1M+ contracts — overkill for mid-market', 'Requires dedicated treasury IT team to manage', 'UI is dated — built for treasury analysts, not CFOs'],
-    discovery: ['What\'s your timeline for having this live? (Kyriba averages 14 months)', 'Do you have an internal IT team dedicated to treasury systems?', 'What\'s your budget range — are you thinking six or seven figures?', 'Have you mapped out the full implementation cost including professional services?'],
-    landmines: ['"What does success look like in 90 days?" — Kyriba can\'t answer that', '"Who owns the implementation internally?" — they need a treasury IT team', '"Have you seen the total cost of ownership including PS fees?" — it\'s 2–3x the license', '"What happens if your needs change in year two?" — Kyriba charges for every config change'],
+    infra: {
+      weaknesses: ['UI is dated — built for treasury analysts, not CFOs', 'Requires a dedicated treasury IT team to manage the system', 'AI forecasting is a bolt-on module, not native'],
+      discovery: ['Do you have an internal IT team dedicated to treasury systems?', 'What\'s your budget range — are you thinking six or seven figures?', 'How modern is the UX your finance team expects today?'],
+      landmines: ['"What does success look like in 90 days?" — Kyriba can\'t answer that', '"What happens if your needs change in year two?" — Kyriba charges for every config change']
+    },
+    impl: {
+      weaknesses: ['12–18 month implementations — deals drag forever', '$300K–$1M+ contracts — overkill for mid-market', 'Professional services fees often 2–3x the license cost'],
+      discovery: ['What\'s your timeline for having this live? (Kyriba averages 14 months)', 'Have you mapped out the full implementation cost including professional services?', 'Who internally would own the implementation project?'],
+      landmines: ['"Who owns the implementation internally?" — they need a treasury IT team', '"Have you seen the total cost of ownership including PS fees?" — it\'s 2–3x the license']
+    },
     proofPoints: ['Nilus live in 3 weeks vs Kyriba\'s 14-month average', 'CFO at [mid-market co] moved from Kyriba evaluation to Nilus — saved $400K in impl costs', 'No dedicated IT required — finance team runs it themselves'],
     facts: [
       { label: 'Implementation time', value: '12–18 months avg', color: 'red' },
@@ -1181,11 +1193,17 @@ const COMP_DATA = {
   highradius: {
     abbr: 'HR', name: 'HighRadius', subtitle: 'AR Automation & AI Forecasting Platform',
     badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
-    whenToUse: 'Prospect has a large AR team and is evaluating AI-powered cash flow tools. HighRadius leads with AR automation, but has no bank recon and limited treasury depth. Expose the gap between AR hype and true cash management.',
     icp: ['Enterprise B2B', 'Large AR teams', '$500M+ revenue', 'ERP-heavy environments', 'AR-intensive industries'],
-    weaknesses: ['AR-first — weak on bank recon and full treasury', 'Complex, expensive pricing tiers', 'Implementation requires heavy IT and change management', 'Forecasting built on AR data only — misses bank-side signals'],
-    discovery: ['How much of your cash flow visibility relies on AR vs bank feeds?', 'Do you have a dedicated IT team for the HighRadius rollout?', 'What does your bank reconciliation process look like today?', 'Is your forecasting challenge AR-driven, or are you missing the full treasury picture?'],
-    landmines: ['"What does your bank recon workflow look like in HighRadius?" — it doesn\'t have one', '"How does it handle multi-bank cash positioning?" — it doesn\'t natively', '"What\'s the all-in cost with professional services?" — typically 2–3x license', '"Who owns the implementation?" — needs a dedicated team'],
+    infra: {
+      weaknesses: ['AR-first — weak on bank recon and full treasury depth', 'Forecasting built on AR data only — misses bank-side signals', 'No native multi-bank cash positioning'],
+      discovery: ['How much of your cash flow visibility relies on AR vs bank feeds?', 'What does your bank reconciliation process look like today?', 'Is your forecasting challenge AR-driven, or are you missing the full treasury picture?'],
+      landmines: ['"What does your bank recon workflow look like in HighRadius?" — it doesn\'t have one', '"How does it handle multi-bank cash positioning?" — it doesn\'t natively']
+    },
+    impl: {
+      weaknesses: ['Complex, expensive pricing tiers', 'Implementation requires heavy IT involvement and change management', 'Long time-to-value — not built for fast deployment'],
+      discovery: ['Do you have a dedicated IT team for the HighRadius rollout?', 'What\'s the all-in cost including professional services?', 'What does your implementation timeline look like?'],
+      landmines: ['"What\'s the all-in cost with professional services?" — typically 2–3x license', '"Who owns the implementation?" — needs a dedicated team']
+    },
     proofPoints: ['Nilus covers bank recon + AR + forecasting in one platform', 'Live in weeks — no enterprise implementation project required', 'Finance team owns the tool — no IT dependency'],
     facts: [
       { label: 'Implementation time', value: '6–12 months', color: 'red' },
@@ -1198,11 +1216,17 @@ const COMP_DATA = {
   sap: {
     abbr: 'SAP', name: 'SAP', subtitle: 'ERP & Treasury Management Module',
     badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
-    whenToUse: 'Prospect is already on SAP ERP and being pushed toward SAP Cash Management by their IT team. Your job: show the finance team they deserve a tool built for them, not bolted onto an ERP.',
     icp: ['Large enterprise', 'SAP ERP shops', '$1B+ revenue', 'Complex global treasury', 'IT-driven buying decisions'],
-    weaknesses: ['Treasury is a module — not a first-class product', 'Requires SAP ecosystem and certified consultants', 'UI is notoriously complex — low finance team adoption', 'Months to years to implement and configure'],
-    discovery: ['Who\'s driving this — your finance team or IT?', 'How long would the SAP treasury module take to go live?', 'Does your finance team actually use the SAP interface today, or do they live in Excel?', 'What\'s the consulting cost estimate for the SAP rollout?'],
-    landmines: ['"What does the finance team\'s day-to-day look like in SAP treasury?" — usually Excel anyway', '"Who manages the SAP configuration?" — needs certified consultants', '"What\'s the total project cost including consulting?" — multiples of license', '"How long until you\'re live?" — typically 12–24 months'],
+    infra: {
+      weaknesses: ['Treasury is a module — not a first-class product', 'UI is notoriously complex — low finance team adoption', 'Real-time cash visibility requires heavy configuration'],
+      discovery: ['Who\'s driving this — your finance team or IT?', 'Does your finance team actually use the SAP interface today, or do they live in Excel?', 'What does real-time cash positioning look like for you in SAP?'],
+      landmines: ['"What does the finance team\'s day-to-day look like in SAP treasury?" — usually Excel anyway', '"Who manages the SAP configuration?" — needs certified consultants']
+    },
+    impl: {
+      weaknesses: ['Requires SAP ecosystem and certified consultants to implement', 'Months to years to go live and configure properly', 'Any change requires consultant involvement and cost'],
+      discovery: ['How long would the SAP treasury module take to go live?', 'What\'s the consulting cost estimate for the SAP rollout?', 'What happens when you need to make a configuration change post-go-live?'],
+      landmines: ['"What\'s the total project cost including consulting?" — multiples of license', '"How long until you\'re live?" — typically 12–24 months']
+    },
     proofPoints: ['Nilus is built for CFOs and treasurers — not SAP admins', 'Go live in weeks, not years', 'Finance team owns the tool from day one — no consultants needed'],
     facts: [
       { label: 'Implementation time', value: '12–24 months', color: 'red' },
@@ -1215,11 +1239,17 @@ const COMP_DATA = {
   trovata: {
     abbr: 'Trv', name: 'Trovata', subtitle: 'Cash Visibility & Reporting Platform',
     badge: 'Secondary', badgeClass: 'secondary', avatarClass: '',
-    whenToUse: 'Prospect loves Trovata\'s beautiful dashboards but is hitting the ceiling — no forecasting engine, no recon, no AP/AR. They want to grow into a full treasury platform. Position Nilus as the obvious next step.',
     icp: ['Mid-market', 'Bank-connected businesses', '$50M–$500M revenue', 'Teams wanting better cash visibility', 'Low treasury sophistication'],
-    weaknesses: ['Dashboard only — no cash flow forecasting engine', 'No bank reconciliation', 'No AP/AR capabilities', 'Limited scenario planning and what-if analysis'],
-    discovery: ['Are you doing any cash flow forecasting today, or mostly looking at actuals?', 'How do you handle bank reconciliation currently?', 'What happens when you need to run a what-if on your cash position?', 'Is Trovata the end state, or a stepping stone to something more?'],
-    landmines: ['"Can Trovata run a 13-week cash flow forecast?" — it can\'t', '"How do you reconcile your bank data?" — manual process still', '"What does AP/AR integration look like?" — not supported', '"What\'s your plan when you outgrow the dashboard view?" — no answer'],
+    infra: {
+      weaknesses: ['Dashboard only — no cash flow forecasting engine', 'No bank reconciliation capability', 'No AP/AR capabilities — visibility without action'],
+      discovery: ['Are you doing any cash flow forecasting today, or mostly looking at actuals?', 'How do you handle bank reconciliation currently?', 'What does AP/AR integration look like for your team?'],
+      landmines: ['"Can Trovata run a 13-week cash flow forecast?" — it can\'t', '"What does AP/AR integration look like?" — not supported']
+    },
+    impl: {
+      weaknesses: ['Limited scenario planning and what-if analysis', 'No workflow automation — reporting only', 'Hits a ceiling quickly as treasury complexity grows'],
+      discovery: ['What happens when you need to run a what-if on your cash position?', 'Is Trovata the end state, or a stepping stone to something more?', 'What\'s the plan when you outgrow reporting-only?'],
+      landmines: ['"How do you reconcile your bank data?" — manual process still', '"What\'s your plan when you outgrow the dashboard view?" — no answer']
+    },
     proofPoints: ['Nilus does forecasting + recon + AP/AR in one platform', 'Same beautiful UX — but with the full treasury engine underneath', 'Trovata customers frequently switch to Nilus when they need more than visibility'],
     facts: [
       { label: 'Implementation time', value: '2–4 weeks', color: 'green' },
@@ -1232,11 +1262,17 @@ const COMP_DATA = {
   gtreasury: {
     abbr: 'GTr', name: 'GTreasury', subtitle: 'Treasury & Risk Management System',
     badge: 'Secondary', badgeClass: 'secondary', avatarClass: '',
-    whenToUse: 'Prospect is evaluating GTreasury as a mid-market TMS alternative. They\'re attracted to the price point vs Kyriba, but still buying legacy architecture. Show them Nilus is what a modern treasury platform actually looks like.',
     icp: ['Mid-to-large market', 'Treasury teams of 3+', '$200M–$2B revenue', 'Multi-entity structures', 'Compliance-heavy industries'],
-    weaknesses: ['Legacy architecture — not cloud-native', 'Complex implementation still required', 'UI requires training — not intuitive for modern finance teams', 'AI and automation features are limited'],
-    discovery: ['How long is the GTreasury implementation estimated to take?', 'What does the finance team\'s day-to-day look like in the tool?', 'How does it handle AI-driven forecasting?', 'What\'s the all-in cost including professional services and training?'],
-    landmines: ['"How long to go live?" — still months, not weeks', '"What does the AI forecasting capability look like?" — minimal', '"Who manages the configuration?" — requires vendor or consultant', '"How does the UI compare to tools your team already uses?" — steep learning curve'],
+    infra: {
+      weaknesses: ['Legacy architecture — not cloud-native', 'AI and automation features are limited', 'UI requires significant training — not intuitive for modern finance teams'],
+      discovery: ['How does it handle AI-driven forecasting?', 'How does the UI compare to tools your team already uses today?', 'Is the platform cloud-native or hosted on-premise?'],
+      landmines: ['"What does the AI forecasting capability look like?" — minimal', '"How does the UI compare to tools your team already uses?" — steep learning curve']
+    },
+    impl: {
+      weaknesses: ['Complex implementation still required despite mid-market positioning', 'Requires vendor involvement for configuration changes', 'Time to value is still measured in months'],
+      discovery: ['How long is the GTreasury implementation estimated to take?', 'What\'s the all-in cost including professional services and training?', 'Who manages configuration changes post go-live?'],
+      landmines: ['"How long to go live?" — still months, not weeks', '"Who manages the configuration?" — requires vendor or consultant']
+    },
     proofPoints: ['Nilus is fully cloud-native — no legacy baggage', 'Live in weeks with self-serve onboarding', 'AI forecasting built in from day one — not an afterthought'],
     facts: [
       { label: 'Implementation time', value: '3–6 months', color: 'orange' },
@@ -1249,11 +1285,17 @@ const COMP_DATA = {
   nilus: {
     abbr: 'N', name: 'Nilus', subtitle: 'All-in-One Cash Management Platform',
     badge: 'Us', badgeClass: 'us', avatarClass: 'nilus',
-    whenToUse: 'This is us. Mid-market companies that need bank recon, AP/AR, forecasting, and visibility — all in one place. Ideal prospect is PE-backed, $20M–$500M revenue, outgrowing spreadsheets or point solutions.',
     icp: ['PE-backed mid-market', '$20M–$500M revenue', 'CFO-led buying', 'Outgrowing Excel or QuickBooks', 'Multi-bank, multi-entity'],
-    weaknesses: ['Newer brand — less name recognition than Kyriba', 'Enterprise-only features still in roadmap', 'Smaller partner ecosystem vs legacy TMS', 'Less known in EMEA markets'],
-    discovery: ['How many banking relationships are you managing today?', 'What does your cash flow forecasting process look like?', 'How long does month-end reconciliation take your team?', 'What\'s the trigger that made you start looking now?'],
-    landmines: [],
+    infra: {
+      weaknesses: ['Newer brand — less name recognition than Kyriba', 'Enterprise-only features still in roadmap', 'Smaller partner ecosystem vs legacy TMS'],
+      discovery: ['How many banking relationships are you managing today?', 'What does your cash flow forecasting process look like?', 'What integrations are non-negotiable for your team?'],
+      landmines: []
+    },
+    impl: {
+      weaknesses: ['Less known in EMEA markets', 'Customer success coverage still scaling globally'],
+      discovery: ['How long does month-end reconciliation take your team?', 'What\'s the trigger that made you start looking now?', 'Who internally would own the rollout?'],
+      landmines: []
+    },
     proofPoints: ['Live in 3 weeks — fastest in category', 'AI-native forecasting built in from day one', 'One platform: bank recon + AP/AR + cash forecasting + reporting', 'Built for CFOs and finance teams — not treasury IT departments'],
     facts: [
       { label: 'Implementation time', value: '2–3 weeks', color: 'green' },
@@ -1288,23 +1330,34 @@ function openCompDetail(id) {
     ${d.facts.map(f => `<div class="qf-row"><span class="qf-label">${f.label}</span><span class="qf-val ${f.color}">${f.value}</span></div>`).join('')}
   </div>`;
 
-  // 2. Main Battle Card
+  // 2. Main Battle Card — tabbed
+  const uid = id;
+  const renderTabContent = (tab, sqColor) => {
+    const data = d[tab];
+    return `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:${data.landmines.length ? '20px' : '0'};">
+        <div>
+          <div class="comp-detail-card-title">${isNilus ? 'Areas to Strengthen' : 'Their Weaknesses'}</div>
+          <div class="detail-points">${data.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${sqColor}"></div>${w}</div>`).join('')}</div>
+        </div>
+        <div>
+          <div class="comp-detail-card-title">${isNilus ? 'Discovery Questions to Ask' : 'Discovery Questions That Expose Them'}</div>
+          <div class="detail-points">${data.discovery.map(q => `<div class="detail-point"><div class="dp-bars"><span></span><span></span></div>${q}</div>`).join('')}</div>
+        </div>
+      </div>
+      ${data.landmines.length ? `<div style="border-top:1px solid var(--card-border);padding-top:18px;">
+        <div class="comp-detail-card-title">Landmines to Plant Early</div>
+        <div class="detail-points">${data.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
+      </div>` : ''}`;
+  };
   html += `<div class="comp-detail-card" style="margin-bottom:20px;">
-    <div class="comp-detail-card-title" style="font-size:13px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:18px;">Nilus VS ${d.name} Battle Card</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:${d.landmines.length ? '20px' : '0'};">
-      <div>
-        <div class="comp-detail-card-title">${isNilus ? 'Areas to Strengthen' : 'Their Weaknesses'}</div>
-        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${isNilus ? 'orange' : 'red'}"></div>${w}</div>`).join('')}</div>
-      </div>
-      <div>
-        <div class="comp-detail-card-title">${isNilus ? 'Discovery Questions to Ask' : 'Discovery Questions That Expose Them'}</div>
-        <div class="detail-points">${d.discovery.map(q => `<div class="detail-point"><div class="dp-bars"><span></span><span></span></div>${q}</div>`).join('')}</div>
-      </div>
+    <div class="comp-detail-card-title" style="font-size:13px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:16px;">Nilus VS ${d.name} Battle Card</div>
+    <div class="battle-inner-tabs">
+      <button class="battle-inner-tab active" onclick="switchBattleTab('${uid}','infra',this)">Infrastructure &amp; Product</button>
+      <button class="battle-inner-tab" onclick="switchBattleTab('${uid}','impl',this)">Support &amp; Implementation</button>
     </div>
-    ${d.landmines.length ? `<div style="border-top:1px solid var(--card-border);padding-top:18px;">
-      <div class="comp-detail-card-title">Landmines to Plant Early</div>
-      <div class="detail-points">${d.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
-    </div>` : ''}
+    <div id="btab-${uid}-infra" class="battle-inner-panel active">${renderTabContent('infra', isNilus ? 'orange' : 'red')}</div>
+    <div id="btab-${uid}-impl" class="battle-inner-panel">${renderTabContent('impl', isNilus ? 'orange' : 'red')}</div>
   </div>`;
 
   // 3. Other Important Proof Points
@@ -1319,6 +1372,14 @@ function openCompDetail(id) {
   document.getElementById('comp-overview').style.display = 'none';
   document.getElementById('comp-detail').style.display = 'block';
   document.getElementById('main').scrollTop = 0;
+}
+
+function switchBattleTab(uid, tab, btn) {
+  const card = btn.closest('.comp-detail-card');
+  card.querySelectorAll('.battle-inner-tab').forEach(b => b.classList.remove('active'));
+  card.querySelectorAll('.battle-inner-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('btab-' + uid + '-' + tab).classList.add('active');
 }
 
 function closeCompDetail() {
