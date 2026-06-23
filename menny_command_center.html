@@ -381,6 +381,8 @@
     padding: 10px 18px; background: var(--card-bg); box-shadow: var(--card-shadow);
     display: flex; flex-direction: column; align-items: center; min-width: 90px; text-align: center;
   }
+  .fc-stat-pill.clickable { cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .fc-stat-pill.clickable:hover { border-color: var(--red); box-shadow: 0 4px 12px rgba(220,38,38,0.15); }
   .fc-stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
   .fc-stat-value { font-size: 18px; font-weight: 700; color: var(--text); margin-top: 2px; }
   .fc-stat-value.red { color: var(--red); }
@@ -624,7 +626,7 @@
             <span class="fc-stat-label">Mastered</span>
             <span class="fc-stat-value" id="fc-mastered">—</span>
           </div>
-          <div class="fc-stat-pill">
+          <div class="fc-stat-pill clickable" onclick="openDueSession()">
             <span class="fc-stat-label">Due today</span>
             <span class="fc-stat-value red" id="fc-due">—</span>
           </div>
@@ -1221,6 +1223,7 @@ let currentTopic = 'all';
 let currentCards = [];
 let currentCardIdx = 0;
 let studyMode = 'all';
+let studyAllDecks = false;
 let answerRevealed = false;
 let rampStartDate = localStorage.getItem('rampStartDate') || new Date().toISOString().split('T')[0];
 if (!localStorage.getItem('rampStartDate')) localStorage.setItem('rampStartDate', rampStartDate);
@@ -1271,9 +1274,9 @@ function rateCard_SM2(cardId, rating) {
 function getAllCards() {
   const cards = [];
   FLASHCARD_DATA.decks.forEach(deck => {
-    deck.topics.forEach(topic => {
+    deck.topics.forEach((topic, topicIdx) => {
       topic.cards.forEach(card => {
-        cards.push({ ...card, deckId: deck.id, deckName: deck.name, topicId: topic.id, topicName: topic.name });
+        cards.push({ ...card, deckId: deck.id, deckName: deck.name, topicId: topic.id, topicName: topic.name, chapterNum: topicIdx + 1 });
       });
     });
   });
@@ -1283,12 +1286,13 @@ function getAllCards() {
 function getFilteredCards() {
   const allCards = getAllCards();
   const today = new Date().toISOString().split('T')[0];
-  let cards = allCards.filter(c => c.deckId === currentDeck);
-  if (currentTopic !== 'all') cards = cards.filter(c => c.topicId === currentTopic);
+  let cards = studyAllDecks ? allCards : allCards.filter(c => c.deckId === currentDeck);
+  if (!studyAllDecks && currentTopic !== 'all') cards = cards.filter(c => c.topicId === currentTopic);
 
   if (studyMode === 'due') {
     cards = cards.filter(c => {
       const state = getCardState(c.id);
+      if (studyAllDecks) return cardProgress[c.id] && cardProgress[c.id].repetitions > 0 && state.dueDate <= today;
       return state.dueDate <= today;
     });
   } else if (studyMode === 'new') {
@@ -1743,6 +1747,7 @@ function initFlashcards() {
 }
 
 function showFlashcardHub() {
+  studyAllDecks = false;
   document.getElementById('fc-hub').style.display = 'block';
   document.getElementById('fc-study').style.display = 'none';
   renderFlashcardHub();
@@ -1750,6 +1755,24 @@ function showFlashcardHub() {
 
 function backToHub() {
   showFlashcardHub();
+}
+
+function openDueSession() {
+  const today = new Date().toISOString().split('T')[0];
+  studyAllDecks = true;
+  studyMode = 'due';
+  document.getElementById('fc-hub').style.display = 'none';
+  document.getElementById('fc-study').style.display = 'block';
+  ['all','due','new'].forEach(m => {
+    document.getElementById('mode-'+m).classList.toggle('active', m === studyMode);
+  });
+  currentCards = getAllCards().filter(c => {
+    const s = cardProgress[c.id];
+    return s && s.repetitions > 0 && s.dueDate <= today;
+  });
+  currentCardIdx = 0;
+  answerRevealed = false;
+  showCard();
 }
 
 function renderFlashcardHub() {
@@ -1926,7 +1949,8 @@ function showCard() {
   const today = new Date().toISOString().split('T')[0];
   const isDue = state.dueDate <= today;
 
-  document.getElementById('card-topic-label').textContent = `${card.topicName} · ${isDue ? '🔴 Due' : `📅 Due ${state.dueDate}`}`;
+  const chLabel = card.chapterNum ? `Ch ${card.chapterNum} · ${card.topicName}` : card.topicName;
+  document.getElementById('card-topic-label').textContent = `${chLabel}  ·  ${isDue ? '🔴 Due' : `📅 ${state.dueDate}`}`;
   document.getElementById('card-question').textContent = card.q;
   document.getElementById('card-answer').textContent = card.a;
   document.getElementById('card-counter').textContent = `${currentCardIdx + 1} / ${currentCards.length} cards`;
