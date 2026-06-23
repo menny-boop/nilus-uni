@@ -116,6 +116,42 @@
   .related-table td:last-child { color: var(--text-muted); font-size: 12px; }
   .rel-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: #ede9fe; color: var(--purple); margin-left: 6px; vertical-align: middle; }
 
+  /* COMPETITOR DETAIL VIEW */
+  .comp-back-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--purple); cursor: pointer; border: 1px solid #ddd6fe; background: none; padding: 6px 14px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; transition: background 0.15s; }
+  .comp-back-btn:hover { background: var(--purple-glow); }
+  .comp-back-icon { width: 12px; height: 12px; border: 1.5px solid var(--purple); border-radius: 2px; flex-shrink: 0; }
+  .comp-detail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .comp-detail-avatar { width: 48px; height: 48px; border-radius: 50%; background: #4b5563; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
+  .comp-detail-avatar.nilus { background: var(--purple); }
+  .comp-detail-name { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  .comp-detail-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+  .comp-detail-badge-wrap { margin-left: auto; flex-shrink: 0; }
+  .comp-when-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
+  .comp-when-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--purple); margin-bottom: 8px; }
+  .comp-when-text { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
+  .comp-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .comp-detail-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; box-shadow: var(--card-shadow); }
+  .comp-detail-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 14px; }
+  .icp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .icp-tag { font-size: 12px; padding: 4px 12px; border: 1px solid var(--card-border); border-radius: 20px; color: var(--text-dim); }
+  .detail-points { display: flex; flex-direction: column; gap: 10px; }
+  .detail-point { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-dim); line-height: 1.45; }
+  .dp-sq { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; border-radius: 2px; }
+  .dp-sq.red { background: #dc2626; }
+  .dp-sq.orange { border: 2px solid #d97706; }
+  .dp-sq.green { border: 2px solid #059669; }
+  .dp-sq.purple { border: 2px solid var(--purple); }
+  .dp-bars { display: flex; gap: 2px; flex-shrink: 0; margin-top: 2px; }
+  .dp-bars span { width: 3px; height: 13px; background: var(--purple); border-radius: 1px; display: block; }
+  .comp-quick-facts { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; box-shadow: var(--card-shadow); margin-top: 16px; }
+  .comp-qf-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 4px; }
+  .qf-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+  .qf-row:last-child { border-bottom: none; }
+  .qf-val { font-weight: 600; }
+  .qf-val.red { color: #dc2626; }
+  .qf-val.orange { color: #d97706; }
+  .qf-val.green { color: #059669; }
+
   /* MAIN AREA */
   #main { flex: 1; overflow-y: auto; padding: 32px; background: var(--bg); }
   .page { display: none; }
@@ -534,6 +570,9 @@
     <!-- Tab: Competitive Intel -->
     <div id="comp-panel-intel" class="comp-tab-panel active">
 
+    <!-- OVERVIEW (hidden when detail is open) -->
+    <div id="comp-overview">
+
     <!-- Stats -->
     <div class="comp-stats">
       <div class="comp-stat-card">
@@ -560,33 +599,31 @@
       <div class="comp-map">
         <div class="comp-map-axis-h"></div>
         <div class="comp-map-axis-v"></div>
-        <!-- Corner labels -->
         <span class="comp-map-label" style="top:10px;left:12px;">Legacy · complex</span>
         <span class="comp-map-label" style="top:10px;right:12px;">Modern · complex</span>
         <span class="comp-map-label" style="bottom:10px;left:12px;">Legacy · simple</span>
         <span class="comp-map-label" style="bottom:10px;right:12px;">Modern · simple</span>
-        <!-- Competitors -->
-        <div class="comp-dot" style="left:18%;top:20%;" onclick="scrollToBattleCard('kyriba')">
+        <div class="comp-dot" style="left:18%;top:20%;" onclick="openCompDetail('kyriba')">
           <div class="comp-dot-circle primary">Kyr</div>
           <div class="comp-dot-name">Kyriba</div>
         </div>
-        <div class="comp-dot" style="left:38%;top:18%;" onclick="scrollToBattleCard('highradius')">
+        <div class="comp-dot" style="left:38%;top:18%;" onclick="openCompDetail('highradius')">
           <div class="comp-dot-circle primary">HR</div>
           <div class="comp-dot-name">HighRadius</div>
         </div>
-        <div class="comp-dot" style="left:18%;top:38%;" onclick="scrollToBattleCard('sap')">
+        <div class="comp-dot" style="left:18%;top:38%;" onclick="openCompDetail('sap')">
           <div class="comp-dot-circle primary">SAP</div>
           <div class="comp-dot-name">SAP</div>
         </div>
-        <div class="comp-dot nilus-dot" style="left:76%;top:26%;">
+        <div class="comp-dot nilus-dot" style="left:76%;top:26%;" onclick="openCompDetail('nilus')">
           <div class="comp-dot-circle nilus">N</div>
           <div class="comp-dot-name">Nilus</div>
         </div>
-        <div class="comp-dot" style="left:64%;top:66%;" onclick="scrollToBattleCard('trovata')">
+        <div class="comp-dot" style="left:64%;top:66%;" onclick="openCompDetail('trovata')">
           <div class="comp-dot-circle secondary">Trv</div>
           <div class="comp-dot-name">Trovata</div>
         </div>
-        <div class="comp-dot" style="left:38%;top:38%;" onclick="scrollToBattleCard('gtreasury')">
+        <div class="comp-dot" style="left:38%;top:38%;" onclick="openCompDetail('gtreasury')">
           <div class="comp-dot-circle secondary">GTr</div>
           <div class="comp-dot-name">GTreasury</div>
         </div>
@@ -596,13 +633,9 @@
     <!-- Battle Cards -->
     <div class="comp-battle-header">Battle Cards · Click to Open</div>
     <div class="comp-battle-grid">
-
-      <div class="battle-card nilus-card" id="bc-nilus">
+      <div class="battle-card nilus-card" onclick="openCompDetail('nilus')">
         <div class="battle-card-top">
-          <div>
-            <div class="battle-card-name">Nilus</div>
-            <div class="battle-card-sub">All-in-one cash management</div>
-          </div>
+          <div><div class="battle-card-name">Nilus</div><div class="battle-card-sub">All-in-one cash management</div></div>
           <span class="battle-badge us">Us</span>
         </div>
         <ul class="battle-points">
@@ -611,13 +644,9 @@
           <li class="battle-point"><div class="battle-point-icon"></div>Weeks to implement, not months</li>
         </ul>
       </div>
-
-      <div class="battle-card" id="bc-kyriba">
+      <div class="battle-card" onclick="openCompDetail('kyriba')">
         <div class="battle-card-top">
-          <div>
-            <div class="battle-card-name">Kyriba</div>
-            <div class="battle-card-sub">Enterprise TMS</div>
-          </div>
+          <div><div class="battle-card-name">Kyriba</div><div class="battle-card-sub">Enterprise TMS</div></div>
           <span class="battle-badge primary">Primary threat</span>
         </div>
         <ul class="battle-points">
@@ -625,13 +654,9 @@
           <li class="battle-point"><div class="battle-point-icon"></div>You say: 12–18 month impl, $500K+, built for F500 not mid-market</li>
         </ul>
       </div>
-
-      <div class="battle-card" id="bc-highradius">
+      <div class="battle-card" onclick="openCompDetail('highradius')">
         <div class="battle-card-top">
-          <div>
-            <div class="battle-card-name">HighRadius</div>
-            <div class="battle-card-sub">AR automation &amp; forecasting</div>
-          </div>
+          <div><div class="battle-card-name">HighRadius</div><div class="battle-card-sub">AR automation &amp; forecasting</div></div>
           <span class="battle-badge primary">Primary threat</span>
         </div>
         <ul class="battle-points">
@@ -639,13 +664,9 @@
           <li class="battle-point"><div class="battle-point-icon"></div>You say: AR-first, no bank recon, complex pricing</li>
         </ul>
       </div>
-
-      <div class="battle-card" id="bc-trovata">
+      <div class="battle-card" onclick="openCompDetail('trovata')">
         <div class="battle-card-top">
-          <div>
-            <div class="battle-card-name">Trovata</div>
-            <div class="battle-card-sub">Cash visibility &amp; reporting</div>
-          </div>
+          <div><div class="battle-card-name">Trovata</div><div class="battle-card-sub">Cash visibility &amp; reporting</div></div>
           <span class="battle-badge secondary">Secondary</span>
         </div>
         <ul class="battle-points">
@@ -653,7 +674,16 @@
           <li class="battle-point"><div class="battle-point-icon"></div>You say: dashboard only — no forecasting engine, no recon</li>
         </ul>
       </div>
+    </div>
 
+    </div><!-- end comp-overview -->
+
+    <!-- DETAIL VIEW -->
+    <div id="comp-detail" style="display:none;">
+      <button class="comp-back-btn" onclick="closeCompDetail()">
+        <div class="comp-back-icon"></div> Back to overview
+      </button>
+      <div id="comp-detail-content"></div>
     </div>
 
     </div><!-- end comp-panel-intel -->
@@ -1130,6 +1160,172 @@ function getRampDay() {
 }
 
 // ===== PAGE NAV =====
+const COMP_DATA = {
+  kyriba: {
+    abbr: 'Kyr', name: 'Kyriba', subtitle: 'Enterprise Treasury Management System',
+    badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
+    whenToUse: 'Prospect is PE-backed, under $5B revenue, and has been in a Kyriba demo. They\'ll be impressed by the brand but sticker-shocked by the price and timeline. Your job: make the complexity visible before they sign.',
+    icp: ['Fortune 500', 'Global multinationals', '$5B+ revenue', 'Complex multi-bank structures', 'Heavy compliance needs'],
+    weaknesses: ['12–18 month implementations — deals drag forever', '$300K–$1M+ contracts — overkill for mid-market', 'Requires dedicated treasury IT team to manage', 'UI is dated — built for treasury analysts, not CFOs'],
+    discovery: ['What\'s your timeline for having this live? (Kyriba averages 14 months)', 'Do you have an internal IT team dedicated to treasury systems?', 'What\'s your budget range — are you thinking six or seven figures?', 'Have you mapped out the full implementation cost including professional services?'],
+    landmines: ['"What does success look like in 90 days?" — Kyriba can\'t answer that', '"Who owns the implementation internally?" — they need a treasury IT team', '"Have you seen the total cost of ownership including PS fees?" — it\'s 2–3x the license', '"What happens if your needs change in year two?" — Kyriba charges for every config change'],
+    proofPoints: ['Nilus live in 3 weeks vs Kyriba\'s 14-month average', 'CFO at [mid-market co] moved from Kyriba evaluation to Nilus — saved $400K in impl costs', 'No dedicated IT required — finance team runs it themselves'],
+    facts: [
+      { label: 'Implementation time', value: '12–18 months avg', color: 'red' },
+      { label: 'Contract size', value: '$300K–$1M+', color: 'red' },
+      { label: 'Target market', value: 'Fortune 500 / enterprise', color: '' },
+      { label: 'AI forecasting', value: 'Add-on module', color: 'orange' },
+      { label: 'Mid-market fit', value: 'Poor', color: 'red' }
+    ]
+  },
+  highradius: {
+    abbr: 'HR', name: 'HighRadius', subtitle: 'AR Automation & AI Forecasting Platform',
+    badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
+    whenToUse: 'Prospect has a large AR team and is evaluating AI-powered cash flow tools. HighRadius leads with AR automation, but has no bank recon and limited treasury depth. Expose the gap between AR hype and true cash management.',
+    icp: ['Enterprise B2B', 'Large AR teams', '$500M+ revenue', 'ERP-heavy environments', 'AR-intensive industries'],
+    weaknesses: ['AR-first — weak on bank recon and full treasury', 'Complex, expensive pricing tiers', 'Implementation requires heavy IT and change management', 'Forecasting built on AR data only — misses bank-side signals'],
+    discovery: ['How much of your cash flow visibility relies on AR vs bank feeds?', 'Do you have a dedicated IT team for the HighRadius rollout?', 'What does your bank reconciliation process look like today?', 'Is your forecasting challenge AR-driven, or are you missing the full treasury picture?'],
+    landmines: ['"What does your bank recon workflow look like in HighRadius?" — it doesn\'t have one', '"How does it handle multi-bank cash positioning?" — it doesn\'t natively', '"What\'s the all-in cost with professional services?" — typically 2–3x license', '"Who owns the implementation?" — needs a dedicated team'],
+    proofPoints: ['Nilus covers bank recon + AR + forecasting in one platform', 'Live in weeks — no enterprise implementation project required', 'Finance team owns the tool — no IT dependency'],
+    facts: [
+      { label: 'Implementation time', value: '6–12 months', color: 'red' },
+      { label: 'Primary strength', value: 'AR automation', color: '' },
+      { label: 'Bank reconciliation', value: 'Not included', color: 'red' },
+      { label: 'Target market', value: 'Enterprise', color: '' },
+      { label: 'Mid-market fit', value: 'Poor', color: 'red' }
+    ]
+  },
+  sap: {
+    abbr: 'SAP', name: 'SAP', subtitle: 'ERP & Treasury Management Module',
+    badge: 'Primary threat', badgeClass: 'primary', avatarClass: '',
+    whenToUse: 'Prospect is already on SAP ERP and being pushed toward SAP Cash Management by their IT team. Your job: show the finance team they deserve a tool built for them, not bolted onto an ERP.',
+    icp: ['Large enterprise', 'SAP ERP shops', '$1B+ revenue', 'Complex global treasury', 'IT-driven buying decisions'],
+    weaknesses: ['Treasury is a module — not a first-class product', 'Requires SAP ecosystem and certified consultants', 'UI is notoriously complex — low finance team adoption', 'Months to years to implement and configure'],
+    discovery: ['Who\'s driving this — your finance team or IT?', 'How long would the SAP treasury module take to go live?', 'Does your finance team actually use the SAP interface today, or do they live in Excel?', 'What\'s the consulting cost estimate for the SAP rollout?'],
+    landmines: ['"What does the finance team\'s day-to-day look like in SAP treasury?" — usually Excel anyway', '"Who manages the SAP configuration?" — needs certified consultants', '"What\'s the total project cost including consulting?" — multiples of license', '"How long until you\'re live?" — typically 12–24 months'],
+    proofPoints: ['Nilus is built for CFOs and treasurers — not SAP admins', 'Go live in weeks, not years', 'Finance team owns the tool from day one — no consultants needed'],
+    facts: [
+      { label: 'Implementation time', value: '12–24 months', color: 'red' },
+      { label: 'Consulting dependency', value: 'High', color: 'red' },
+      { label: 'Target market', value: 'Large enterprise / SAP shops', color: '' },
+      { label: 'Finance team UX', value: 'Poor', color: 'red' },
+      { label: 'Mid-market fit', value: 'Very poor', color: 'red' }
+    ]
+  },
+  trovata: {
+    abbr: 'Trv', name: 'Trovata', subtitle: 'Cash Visibility & Reporting Platform',
+    badge: 'Secondary', badgeClass: 'secondary', avatarClass: '',
+    whenToUse: 'Prospect loves Trovata\'s beautiful dashboards but is hitting the ceiling — no forecasting engine, no recon, no AP/AR. They want to grow into a full treasury platform. Position Nilus as the obvious next step.',
+    icp: ['Mid-market', 'Bank-connected businesses', '$50M–$500M revenue', 'Teams wanting better cash visibility', 'Low treasury sophistication'],
+    weaknesses: ['Dashboard only — no cash flow forecasting engine', 'No bank reconciliation', 'No AP/AR capabilities', 'Limited scenario planning and what-if analysis'],
+    discovery: ['Are you doing any cash flow forecasting today, or mostly looking at actuals?', 'How do you handle bank reconciliation currently?', 'What happens when you need to run a what-if on your cash position?', 'Is Trovata the end state, or a stepping stone to something more?'],
+    landmines: ['"Can Trovata run a 13-week cash flow forecast?" — it can\'t', '"How do you reconcile your bank data?" — manual process still', '"What does AP/AR integration look like?" — not supported', '"What\'s your plan when you outgrow the dashboard view?" — no answer'],
+    proofPoints: ['Nilus does forecasting + recon + AP/AR in one platform', 'Same beautiful UX — but with the full treasury engine underneath', 'Trovata customers frequently switch to Nilus when they need more than visibility'],
+    facts: [
+      { label: 'Implementation time', value: '2–4 weeks', color: 'green' },
+      { label: 'Cash forecasting', value: 'Not included', color: 'red' },
+      { label: 'Bank reconciliation', value: 'Not included', color: 'red' },
+      { label: 'Target market', value: 'Mid-market', color: '' },
+      { label: 'Mid-market fit', value: 'Moderate', color: 'orange' }
+    ]
+  },
+  gtreasury: {
+    abbr: 'GTr', name: 'GTreasury', subtitle: 'Treasury & Risk Management System',
+    badge: 'Secondary', badgeClass: 'secondary', avatarClass: '',
+    whenToUse: 'Prospect is evaluating GTreasury as a mid-market TMS alternative. They\'re attracted to the price point vs Kyriba, but still buying legacy architecture. Show them Nilus is what a modern treasury platform actually looks like.',
+    icp: ['Mid-to-large market', 'Treasury teams of 3+', '$200M–$2B revenue', 'Multi-entity structures', 'Compliance-heavy industries'],
+    weaknesses: ['Legacy architecture — not cloud-native', 'Complex implementation still required', 'UI requires training — not intuitive for modern finance teams', 'AI and automation features are limited'],
+    discovery: ['How long is the GTreasury implementation estimated to take?', 'What does the finance team\'s day-to-day look like in the tool?', 'How does it handle AI-driven forecasting?', 'What\'s the all-in cost including professional services and training?'],
+    landmines: ['"How long to go live?" — still months, not weeks', '"What does the AI forecasting capability look like?" — minimal', '"Who manages the configuration?" — requires vendor or consultant', '"How does the UI compare to tools your team already uses?" — steep learning curve'],
+    proofPoints: ['Nilus is fully cloud-native — no legacy baggage', 'Live in weeks with self-serve onboarding', 'AI forecasting built in from day one — not an afterthought'],
+    facts: [
+      { label: 'Implementation time', value: '3–6 months', color: 'orange' },
+      { label: 'Cloud-native', value: 'Partial', color: 'orange' },
+      { label: 'AI forecasting', value: 'Limited', color: 'orange' },
+      { label: 'Target market', value: 'Mid-to-large market', color: '' },
+      { label: 'Mid-market fit', value: 'Moderate', color: 'orange' }
+    ]
+  },
+  nilus: {
+    abbr: 'N', name: 'Nilus', subtitle: 'All-in-One Cash Management Platform',
+    badge: 'Us', badgeClass: 'us', avatarClass: 'nilus',
+    whenToUse: 'This is us. Mid-market companies that need bank recon, AP/AR, forecasting, and visibility — all in one place. Ideal prospect is PE-backed, $20M–$500M revenue, outgrowing spreadsheets or point solutions.',
+    icp: ['PE-backed mid-market', '$20M–$500M revenue', 'CFO-led buying', 'Outgrowing Excel or QuickBooks', 'Multi-bank, multi-entity'],
+    weaknesses: ['Newer brand — less name recognition than Kyriba', 'Enterprise-only features still in roadmap', 'Smaller partner ecosystem vs legacy TMS', 'Less known in EMEA markets'],
+    discovery: ['How many banking relationships are you managing today?', 'What does your cash flow forecasting process look like?', 'How long does month-end reconciliation take your team?', 'What\'s the trigger that made you start looking now?'],
+    landmines: [],
+    proofPoints: ['Live in 3 weeks — fastest in category', 'AI-native forecasting built in from day one', 'One platform: bank recon + AP/AR + cash forecasting + reporting', 'Built for CFOs and finance teams — not treasury IT departments'],
+    facts: [
+      { label: 'Implementation time', value: '2–3 weeks', color: 'green' },
+      { label: 'AI forecasting', value: 'Native, built-in', color: 'green' },
+      { label: 'Target market', value: 'Mid-market ($20M–$500M)', color: '' },
+      { label: 'Bank reconciliation', value: 'Included', color: 'green' },
+      { label: 'Mid-market fit', value: 'Excellent', color: 'green' }
+    ]
+  }
+};
+
+function openCompDetail(id) {
+  const d = COMP_DATA[id];
+  if (!d) return;
+  const isNilus = id === 'nilus';
+  let html = `
+    <div class="comp-detail-header">
+      <div class="comp-detail-avatar ${d.avatarClass}">${d.abbr}</div>
+      <div><div class="comp-detail-name">${d.name}</div><div class="comp-detail-sub">${d.subtitle}</div></div>
+      <div class="comp-detail-badge-wrap"><span class="battle-badge ${d.badgeClass}">${d.badge}</span></div>
+    </div>
+    <div class="comp-when-box">
+      <div class="comp-when-label">${isNilus ? 'Our Ideal Customer Profile' : 'When to Bring Nilus In'}</div>
+      <div class="comp-when-text">${d.whenToUse}</div>
+    </div>
+    <div class="comp-detail-grid">
+      <div class="comp-detail-card">
+        <div class="comp-detail-card-title">Their ICP</div>
+        <div class="icp-tags">${d.icp.map(t => `<span class="icp-tag">${t}</span>`).join('')}</div>
+        ${!isNilus && d.weaknesses.length ? `<div class="comp-detail-card-title" style="margin-top:14px;">Their Weaknesses</div>
+        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq red"></div>${w}</div>`).join('')}</div>` : ''}
+        ${isNilus ? `<div class="comp-detail-card-title" style="margin-top:14px;">Areas to Strengthen</div>
+        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq orange"></div>${w}</div>`).join('')}</div>` : ''}
+      </div>
+      <div class="comp-detail-card">
+        <div class="comp-detail-card-title">${isNilus ? 'Discovery Questions to Ask' : 'Discovery Questions That Expose Them'}</div>
+        <div class="detail-points">${d.discovery.map(q => `<div class="detail-point"><div class="dp-bars"><span></span><span></span></div>${q}</div>`).join('')}</div>
+      </div>
+    </div>`;
+  if (!isNilus && (d.landmines.length || d.proofPoints.length)) {
+    html += `<div class="comp-detail-grid">
+      <div class="comp-detail-card">
+        <div class="comp-detail-card-title">Landmines to Plant Early</div>
+        <div class="detail-points">${d.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
+      </div>
+      <div class="comp-detail-card">
+        <div class="comp-detail-card-title">Proof Points to Deploy</div>
+        <div class="detail-points">${d.proofPoints.map(p => `<div class="detail-point"><div class="dp-sq green"></div>${p}</div>`).join('')}</div>
+      </div>
+    </div>`;
+  }
+  if (isNilus && d.proofPoints.length) {
+    html += `<div class="comp-detail-card" style="margin-bottom:16px;">
+      <div class="comp-detail-card-title">Our Proof Points</div>
+      <div class="detail-points">${d.proofPoints.map(p => `<div class="detail-point"><div class="dp-sq green"></div>${p}</div>`).join('')}</div>
+    </div>`;
+  }
+  html += `<div class="comp-quick-facts">
+    <div class="comp-qf-title">Quick Facts</div>
+    ${d.facts.map(f => `<div class="qf-row"><span class="qf-label">${f.label}</span><span class="qf-val ${f.color}">${f.value}</span></div>`).join('')}
+  </div>`;
+  document.getElementById('comp-detail-content').innerHTML = html;
+  document.getElementById('comp-overview').style.display = 'none';
+  document.getElementById('comp-detail').style.display = 'block';
+  document.getElementById('main').scrollTop = 0;
+}
+
+function closeCompDetail() {
+  document.getElementById('comp-detail').style.display = 'none';
+  document.getElementById('comp-overview').style.display = 'block';
+}
+
 function switchCompTab(tab, btn) {
   document.querySelectorAll('.comp-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.comp-tab-panel').forEach(p => p.classList.remove('active'));
