@@ -1471,8 +1471,8 @@ function openCompDetail(id) {
     const data = d[tab];
     const cards = d.battleCards && d.battleCards[tab];
     let out = '';
-    if (data && data.weaknesses && data.weaknesses.length) {
-      out += `<div class="comp-detail-card-title" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin-bottom:12px;">${isNilus ? 'Areas to Strengthen' : 'Key Weaknesses'}</div>
+    if (!isNilus && data && data.weaknesses && data.weaknesses.length) {
+      out += `<div class="comp-detail-card-title" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin-bottom:12px;">Key Weaknesses</div>
       <div class="detail-points" style="margin-bottom:${cards ? '20px' : '0'}">${data.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${sqColor}"></div>${w}</div>`).join('')}</div>`;
     }
     if (cards && cards.length) {
