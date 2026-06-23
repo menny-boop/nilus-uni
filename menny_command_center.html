@@ -1269,52 +1269,52 @@ function openCompDetail(id) {
   const d = COMP_DATA[id];
   if (!d) return;
   const isNilus = id === 'nilus';
+
+  // Header
   let html = `
     <div class="comp-detail-header">
       <div class="comp-detail-avatar ${d.avatarClass}">${d.abbr}</div>
       <div><div class="comp-detail-name">${d.name}</div><div class="comp-detail-sub">${d.subtitle}</div></div>
       <div class="comp-detail-badge-wrap"><span class="battle-badge ${d.badgeClass}">${d.badge}</span></div>
+    </div>`;
+
+  // 1. Quick Facts (top) — includes ICP
+  html += `<div class="comp-quick-facts" style="margin-bottom:20px;">
+    <div class="comp-qf-title">Quick Facts</div>
+    <div class="qf-row">
+      <span class="qf-label">Ideal Customer Profile</span>
+      <span class="qf-val" style="text-align:right;font-weight:400;color:var(--text-muted);">${d.icp.join(' · ')}</span>
     </div>
-    <div class="comp-when-box">
-      <div class="comp-when-label">${isNilus ? 'Our Ideal Customer Profile' : 'When to Bring Nilus In'}</div>
-      <div class="comp-when-text">${d.whenToUse}</div>
-    </div>
-    <div class="comp-detail-grid">
-      <div class="comp-detail-card">
-        <div class="comp-detail-card-title">Their ICP</div>
-        <div class="icp-tags">${d.icp.map(t => `<span class="icp-tag">${t}</span>`).join('')}</div>
-        ${!isNilus && d.weaknesses.length ? `<div class="comp-detail-card-title" style="margin-top:14px;">Their Weaknesses</div>
-        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq red"></div>${w}</div>`).join('')}</div>` : ''}
-        ${isNilus ? `<div class="comp-detail-card-title" style="margin-top:14px;">Areas to Strengthen</div>
-        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq orange"></div>${w}</div>`).join('')}</div>` : ''}
+    ${d.facts.map(f => `<div class="qf-row"><span class="qf-label">${f.label}</span><span class="qf-val ${f.color}">${f.value}</span></div>`).join('')}
+  </div>`;
+
+  // 2. Main Battle Card
+  html += `<div class="comp-detail-card" style="margin-bottom:20px;">
+    <div class="comp-detail-card-title" style="font-size:13px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:18px;">Battle Card</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:${d.landmines.length ? '20px' : '0'};">
+      <div>
+        <div class="comp-detail-card-title">${isNilus ? 'Areas to Strengthen' : 'Their Weaknesses'}</div>
+        <div class="detail-points">${d.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${isNilus ? 'orange' : 'red'}"></div>${w}</div>`).join('')}</div>
       </div>
-      <div class="comp-detail-card">
+      <div>
         <div class="comp-detail-card-title">${isNilus ? 'Discovery Questions to Ask' : 'Discovery Questions That Expose Them'}</div>
         <div class="detail-points">${d.discovery.map(q => `<div class="detail-point"><div class="dp-bars"><span></span><span></span></div>${q}</div>`).join('')}</div>
       </div>
-    </div>`;
-  if (!isNilus && (d.landmines.length || d.proofPoints.length)) {
-    html += `<div class="comp-detail-grid">
-      <div class="comp-detail-card">
-        <div class="comp-detail-card-title">Landmines to Plant Early</div>
-        <div class="detail-points">${d.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
-      </div>
-      <div class="comp-detail-card">
-        <div class="comp-detail-card-title">Proof Points to Deploy</div>
-        <div class="detail-points">${d.proofPoints.map(p => `<div class="detail-point"><div class="dp-sq green"></div>${p}</div>`).join('')}</div>
-      </div>
-    </div>`;
-  }
-  if (isNilus && d.proofPoints.length) {
-    html += `<div class="comp-detail-card" style="margin-bottom:16px;">
-      <div class="comp-detail-card-title">Our Proof Points</div>
+    </div>
+    ${d.landmines.length ? `<div style="border-top:1px solid var(--card-border);padding-top:18px;">
+      <div class="comp-detail-card-title">Landmines to Plant Early</div>
+      <div class="detail-points">${d.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
+    </div>` : ''}
+  </div>`;
+
+  // 3. Other Important Proof Points
+  if (d.proofPoints.length) {
+    html += `<div class="comp-detail-card">
+      <div class="comp-detail-card-title" style="font-size:13px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:14px;">Other Important Proof Points</div>
       <div class="detail-points">${d.proofPoints.map(p => `<div class="detail-point"><div class="dp-sq green"></div>${p}</div>`).join('')}</div>
     </div>`;
   }
-  html += `<div class="comp-quick-facts">
-    <div class="comp-qf-title">Quick Facts</div>
-    ${d.facts.map(f => `<div class="qf-row"><span class="qf-label">${f.label}</span><span class="qf-val ${f.color}">${f.value}</span></div>`).join('')}
-  </div>`;
+
   document.getElementById('comp-detail-content').innerHTML = html;
   document.getElementById('comp-overview').style.display = 'none';
   document.getElementById('comp-detail').style.display = 'block';
