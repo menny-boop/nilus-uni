@@ -1335,20 +1335,8 @@ function openCompDetail(id) {
   const renderTabContent = (tab, sqColor) => {
     const data = d[tab];
     return `
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:${data.landmines.length ? '20px' : '0'};">
-        <div>
-          <div class="comp-detail-card-title">${isNilus ? 'Areas to Strengthen' : 'Their Weaknesses'}</div>
-          <div class="detail-points">${data.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${sqColor}"></div>${w}</div>`).join('')}</div>
-        </div>
-        <div>
-          <div class="comp-detail-card-title">${isNilus ? 'Discovery Questions to Ask' : 'Discovery Questions That Expose Them'}</div>
-          <div class="detail-points">${data.discovery.map(q => `<div class="detail-point"><div class="dp-bars"><span></span><span></span></div>${q}</div>`).join('')}</div>
-        </div>
-      </div>
-      ${data.landmines.length ? `<div style="border-top:1px solid var(--card-border);padding-top:18px;">
-        <div class="comp-detail-card-title">Landmines to Plant Early</div>
-        <div class="detail-points">${data.landmines.map(l => `<div class="detail-point"><div class="dp-sq orange"></div>${l}</div>`).join('')}</div>
-      </div>` : ''}`;
+      <div class="comp-detail-card-title">${isNilus ? 'Areas to Strengthen' : 'Their Weaknesses'}</div>
+      <div class="detail-points">${data.weaknesses.map(w => `<div class="detail-point"><div class="dp-sq ${sqColor}"></div>${w}</div>`).join('')}</div>`;
   };
   html += `<div class="comp-detail-card" style="margin-bottom:20px;">
     <div class="comp-detail-card-title" style="font-size:13px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:16px;">Nilus VS ${d.name} Battle Card</div>
