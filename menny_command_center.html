@@ -1668,6 +1668,12 @@ function showPage(pageId, navEl) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + pageId).classList.add('active');
   if (navEl) navEl.classList.add('active');
+  else {
+    const match = document.querySelector('[onclick*="showPage(\'' + pageId + '\'"]') ||
+                  document.querySelector('[onclick*=\'showPage("' + pageId + '"\']');
+    if (match) match.classList.add('active');
+  }
+  location.hash = pageId;
   if (pageId === 'dashboard') updateDashboard();
   if (pageId === 'flashcards') initFlashcards();
   if (pageId === 'ramp') renderRamp();
@@ -2123,7 +2129,13 @@ function renderGrowthContent() {
 }
 
 // ===== INIT =====
-updateDashboard();
+const VALID_PAGES = ['dashboard','ramp','flashcards','competitive','objections','growth','progress','resources'];
+const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
+if (initPage !== 'dashboard') {
+  showPage(initPage);
+} else {
+  updateDashboard();
+}
 updateDueBadge();
 </script>
 </body>
