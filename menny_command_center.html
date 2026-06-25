@@ -594,7 +594,6 @@
   </div>
   <div class="nav-item" onclick="showPage('flashcards', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1" fill="currentColor"/></svg></span> Flashcards
-    <span class="nav-badge" id="due-badge">0</span>
   </div>
 
   <div class="sidebar-section">Sales</div>
@@ -632,7 +631,7 @@
       <div class="stat-card yellow">
         <div class="label">Ramp Day</div>
         <div class="value" id="stat-day">—</div>
-        <div class="sub">of 10</div>
+        <div class="sub">of 14</div>
       </div>
       <div class="stat-card blue">
         <div class="label">Total Cards</div>
@@ -640,7 +639,7 @@
         <div class="sub">Across all decks</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
       <div style="background:#ffffff;border:1px solid var(--card-border);border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
         <h3 style="font-size:15px;font-weight:600;margin-bottom:14px">📅 Today's Focus</h3>
         <div id="today-focus" style="font-size:13px;color:var(--text-dim);line-height:1.8"></div>
@@ -650,13 +649,24 @@
         <div id="recent-activity" style="font-size:13px;color:var(--text-dim);line-height:1.8"></div>
       </div>
     </div>
+    <div style="background:#ffffff;border:1px solid var(--card-border);border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:4px">🗓 Ramp Start Date</div>
+        <div style="font-size:12px;color:var(--text-muted)">Changing this will reset all task and flashcard progress.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <input type="date" id="start-date-input" style="border:1px solid var(--card-border);border-radius:8px;padding:8px 12px;font-size:14px;color:var(--text);background:#f9fafb;cursor:pointer;outline:none;" oninput="previewStartDate(this.value)">
+        <button id="start-date-btn" onclick="confirmStartDate()" style="display:none;background:var(--purple);color:white;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--purple-light)'" onmouseout="this.style.background='var(--purple)'">Save &amp; Reset</button>
+        <div id="start-date-status" style="font-size:12px;color:var(--text-muted)"></div>
+      </div>
+    </div>
   </div>
 
   <!-- RAMP PLAN -->
   <div id="page-ramp" class="page">
     <div class="page-header">
-      <h2>📅 10-Day AE Ramp Plan</h2>
-      <p>Week 1: Product Mastery · Week 2: Sales Application</p>
+      <h2>📅 14-Day AE Ramp Plan</h2>
+      <p>Week 1: Product Mastery · Week 2: Sales Application · Week 3: Pipeline Acceleration</p>
     </div>
     <div class="ramp-grid" id="ramp-grid"></div>
   </div>
@@ -754,7 +764,7 @@
         <div class="myprog-divider"></div>
         <div>
           <div class="myprog-stat-day" id="mp-day-label">—</div>
-          <div class="myprog-stat-lbl" id="mp-day-sub">of 10 · on track</div>
+          <div class="myprog-stat-lbl" id="mp-day-sub">of 14 · on track</div>
         </div>
       </div>
     </div>
@@ -1151,6 +1161,38 @@ const RAMP_PLAN = [
     "Demonstrate: Procurement navigation — legal, security, finance hurdles",
     "Set 30-day pipeline target + executive presence goals with manager",
     "Rate ALL items in Growth Plan — establish your baseline"
+  ]},
+  { day: 11, theme: "Live Deal Execution", week: "Week 3: Pipeline Acceleration", tasks: [
+    "Run your first fully independent discovery call — no shadowing",
+    "Send a customised follow-up with a Nilus value prop mapped to prospect pain",
+    "Identify the economic buyer in each active opportunity",
+    "Practice the 'so what does that cost you today?' ROI question live",
+    "Update all CRM deal stages with next steps and close dates",
+    "Debrief every call: what landed, what didn't, what you'd change"
+  ]},
+  { day: 12, theme: "Forecasting & Pipeline Hygiene", week: "Week 3: Pipeline Acceleration", tasks: [
+    "Audit every deal: is MEDDICC complete? Is the next step scheduled?",
+    "Build a personal forecast call cadence — weekly commit vs. best case",
+    "Practice explaining your pipeline to your manager in under 3 minutes",
+    "Identify 2 deals at risk — map the risk and a mitigation plan",
+    "Write a 1-page territory snapshot: ICP coverage, pipeline by stage, gaps",
+    "Study Treasury Forecasting flashcard topic (Ch14) — second full pass"
+  ]},
+  { day: 13, theme: "Advanced Competitive & Differentiation", week: "Week 3: Pipeline Acceleration", tasks: [
+    "Run a full battle-card drill for Kyriba, HighRadius, SAP from memory",
+    "Practice: 'We're already evaluating Kyriba' — handle cold without notes",
+    "Study Financial Risk Management flashcard topic (Ch16 + Ch17)",
+    "Draft a competitive displacement email for a Kyriba prospect",
+    "Map 3 real accounts where Nilus wins on speed-to-value over incumbents",
+    "Practice executive storytelling: open with the CFO's problem, not the product"
+  ]},
+  { day: 14, theme: "Graduation & 30-Day Plan", week: "Week 3: Pipeline Acceleration", tasks: [
+    "Present full pipeline review: every deal, MEDDICC, next steps, forecast",
+    "Demonstrate: end-to-end Nilus demo tailored to a CFO at a specific company",
+    "Demonstrate: handle pricing, security, and legal objections back-to-back",
+    "Write your personal 30-day post-ramp plan: targets, focus areas, skill gaps",
+    "Complete all remaining treasury flashcard chapters — final review pass",
+    "Schedule bi-weekly 1:1 coaching sessions with your manager going forward"
   ]}
 ];
 
@@ -1407,7 +1449,7 @@ function getRampDay() {
   const start = new Date(rampStartDate);
   const today = new Date();
   const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
-  return Math.min(10, Math.max(1, diff));
+  return Math.min(14, Math.max(1, diff));
 }
 
 // ===== PAGE NAV =====
@@ -1773,6 +1815,44 @@ function showPage(pageId, navEl) {
 }
 
 // ===== DASHBOARD =====
+function previewStartDate(val) {
+  const btn = document.getElementById('start-date-btn');
+  const status = document.getElementById('start-date-status');
+  if (val && val !== rampStartDate) {
+    btn.style.display = 'inline-block';
+    status.textContent = '';
+  } else {
+    btn.style.display = 'none';
+    status.textContent = val === rampStartDate ? 'Current start date' : '';
+  }
+}
+
+function confirmStartDate() {
+  const val = document.getElementById('start-date-input').value;
+  if (!val) return;
+  if (!confirm('This will reset all task checkboxes and flashcard progress. Are you sure?')) return;
+  rampStartDate = val;
+  localStorage.setItem('rampStartDate', val);
+  cardProgress = {};
+  localStorage.setItem('cardProgress', JSON.stringify(cardProgress));
+  rampTasks = {};
+  localStorage.setItem('rampTasks', JSON.stringify(rampTasks));
+  taskProgress = {};
+  localStorage.setItem('taskProgress', JSON.stringify(taskProgress));
+  document.getElementById('start-date-btn').style.display = 'none';
+  document.getElementById('start-date-status').textContent = 'Reset complete';
+  updateDashboard();
+  updateDueBadge();
+}
+
+function initStartDateInput() {
+  const input = document.getElementById('start-date-input');
+  if (input) {
+    input.value = rampStartDate;
+    document.getElementById('start-date-status').textContent = 'Current start date';
+  }
+}
+
 function updateDashboard() {
   const due = getDueCount();
   const mastered = getMasteredCount();
@@ -1783,9 +1863,11 @@ function updateDashboard() {
   document.getElementById('stat-mastered').textContent = mastered;
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-day').textContent = day;
-  document.getElementById('due-badge').textContent = due;
+  const dueBadge = document.getElementById('due-badge');
+  if (dueBadge) dueBadge.textContent = due;
+  initStartDateInput();
 
-  const rampDay = RAMP_PLAN[Math.min(day - 1, 9)];
+  const rampDay = RAMP_PLAN[Math.min(day - 1, 13)];
   document.getElementById('today-focus').innerHTML = `
     <strong style="color:var(--purple-light)">${rampDay.theme}</strong><br>
     <span style="font-size:12px;color:var(--text-muted)">${rampDay.week}</span><br><br>
@@ -1798,7 +1880,7 @@ function updateDashboard() {
     ✅ <strong>${mastered}</strong> cards mastered<br>
     🔄 <strong>${totalReviewed}</strong> total reviews completed<br>
     📅 <strong>${due}</strong> cards due for review today<br>
-    🔥 Day <strong>${day}</strong> of 10 ramp plan
+    🔥 Day <strong>${day}</strong> of 14 ramp plan
   `;
 }
 
@@ -2116,15 +2198,15 @@ function toggleTask(day, idx) {
 function renderMyProgress() {
   const day = getRampDay();
   const viewDay = mpSelectedDay || day;
-  const pct = Math.round((day - 1) / 10 * 100);
+  const pct = Math.round((day - 1) / 14 * 100);
 
   document.getElementById('mp-ramp-pct').textContent = pct + '%';
   document.getElementById('mp-day-label').textContent = 'Day ' + day;
-  document.getElementById('mp-day-sub').textContent = 'of 10 · ' + (day <= 10 ? 'on track' : 'complete');
+  document.getElementById('mp-day-sub').textContent = 'of 14 · ' + (day <= 14 ? 'on track' : 'complete');
 
   // Timeline
   const tl = document.getElementById('mp-timeline');
-  tl.innerHTML = Array.from({length: 10}, (_, i) => {
+  tl.innerHTML = Array.from({length: 14}, (_, i) => {
     const d = i + 1;
     const cls = d < day ? 'done' : d === day ? 'today' : 'future';
     const lblCls = d === day ? 'today-lbl' : '';
