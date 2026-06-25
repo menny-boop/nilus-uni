@@ -334,12 +334,71 @@
   .study-toggle.active { background: var(--purple); border-color: var(--purple); color: white; }
 
   /* PROGRESS */
-  .progress-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
-  .progress-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; box-shadow: var(--card-shadow); }
-  .progress-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-  .prog-bar-wrap { background: var(--card-border); border-radius: 4px; height: 8px; overflow: hidden; margin-bottom: 6px; }
-  .prog-bar { height: 100%; border-radius: 4px; background: var(--purple); transition: width 0.5s; }
-  .prog-label { font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; }
+  /* MY PROGRESS */
+  .myprog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+  .myprog-title h2 { font-size: 26px; font-weight: 700; }
+  .myprog-title p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .myprog-stat-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px 24px; box-shadow: var(--card-shadow); display: flex; gap: 32px; align-items: center; }
+  .myprog-stat-pct { font-size: 32px; font-weight: 800; color: var(--purple-light); line-height: 1; }
+  .myprog-stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .myprog-divider { width: 1px; height: 40px; background: var(--card-border); }
+  .myprog-stat-day { font-size: 26px; font-weight: 800; color: #059669; line-height: 1; }
+  .myprog-timeline-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: var(--card-shadow); }
+  .myprog-timeline-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 20px; font-weight: 600; }
+  .myprog-timeline { display: flex; align-items: flex-start; justify-content: space-between; position: relative; }
+  .myprog-timeline::before { content: ''; position: absolute; top: 19px; left: 20px; right: 20px; height: 2px; background: #e5e7eb; z-index: 0; }
+  .myprog-timeline-day { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; position: relative; z-index: 1; }
+  .myprog-day-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; border: 2px solid; transition: transform 0.15s; }
+  .myprog-day-circle:hover { transform: scale(1.1); }
+  .myprog-day-circle.done { background: #059669; border-color: #059669; color: white; }
+  .myprog-day-circle.today { background: var(--purple); border-color: var(--purple); color: white; }
+  .myprog-day-circle.future { background: white; border-color: #d1d5db; color: #9ca3af; }
+  .myprog-day-lbl { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.3; }
+  .myprog-day-lbl.today-lbl { color: var(--purple); font-weight: 600; }
+  .myprog-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .myprog-tasks-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; box-shadow: var(--card-shadow); }
+  .myprog-tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .myprog-tasks-title { font-size: 16px; font-weight: 700; }
+  .myprog-tasks-badge { font-size: 12px; background: rgba(124,58,237,0.1); color: var(--purple); padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+  .myprog-task { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--card-border); }
+  .myprog-task:last-of-type { border-bottom: none; }
+  .myprog-task-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid; cursor: pointer; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .myprog-task-check.done { background: #059669; border-color: #059669; color: white; font-size: 13px; }
+  .myprog-task-check.undone { border-color: #d1d5db; }
+  .myprog-task-check.undone:hover { border-color: var(--purple); }
+  .myprog-task-text { flex: 1; font-size: 13px; line-height: 1.5; color: var(--text); }
+  .myprog-task-text.done { text-decoration: line-through; color: var(--text-muted); }
+  .myprog-task-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
+  .tag-treasury { background: #ede9fe; color: #7c3aed; }
+  .tag-product { background: #dcfce7; color: #059669; }
+  .tag-process { background: #e0f2fe; color: #0284c7; }
+  .myprog-progress-bar-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+  .myprog-progress-track { flex: 1; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+  .myprog-progress-fill { height: 100%; background: var(--purple); border-radius: 3px; transition: width 0.3s; }
+  .myprog-progress-lbl { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+  .myprog-right { display: flex; flex-direction: column; gap: 16px; }
+  .myprog-mastery-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; box-shadow: var(--card-shadow); }
+  .myprog-mastery-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .myprog-mastery-title { font-size: 15px; font-weight: 700; }
+  .myprog-mastery-count { font-size: 22px; font-weight: 800; color: var(--purple); line-height: 1; }
+  .myprog-mastery-sub { font-size: 11px; color: var(--text-muted); text-align: right; margin-top: 2px; }
+  .myprog-ch-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .myprog-ch-cell { border-radius: 8px; padding: 8px 4px 10px; text-align: center; cursor: pointer; transition: transform 0.15s; border: 1px solid transparent; }
+  .myprog-ch-cell:hover { transform: scale(1.05); }
+  .myprog-ch-num { font-size: 18px; font-weight: 700; line-height: 1; }
+  .myprog-ch-bar { height: 3px; border-radius: 2px; margin-top: 5px; }
+  .myprog-ch-cell.mastered { background: #dcfce7; border-color: #bbf7d0; } .myprog-ch-cell.mastered .myprog-ch-num { color: #059669; } .myprog-ch-cell.mastered .myprog-ch-bar { background: #059669; }
+  .myprog-ch-cell.learning { background: #fef9c3; border-color: #fde68a; } .myprog-ch-cell.learning .myprog-ch-num { color: #d97706; } .myprog-ch-cell.learning .myprog-ch-bar { background: #d97706; }
+  .myprog-ch-cell.struggling { background: #fee2e2; border-color: #fecaca; } .myprog-ch-cell.struggling .myprog-ch-num { color: #dc2626; } .myprog-ch-cell.struggling .myprog-ch-bar { background: #dc2626; }
+  .myprog-ch-cell.not-started { background: #f5f0e8; border-color: #e8e0d4; } .myprog-ch-cell.not-started .myprog-ch-num { color: #9ca3af; } .myprog-ch-cell.not-started .myprog-ch-bar { background: #d1d5db; }
+  .myprog-skills-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px 24px; box-shadow: var(--card-shadow); }
+  .myprog-skills-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); font-weight: 600; margin-bottom: 14px; }
+  .myprog-skill-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .myprog-skill-row:last-child { margin-bottom: 0; }
+  .myprog-skill-name { font-size: 13px; color: var(--text-dim); width: 110px; flex-shrink: 0; }
+  .myprog-skill-track { flex: 1; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+  .myprog-skill-fill { height: 100%; border-radius: 3px; }
+  .myprog-skill-pct { font-size: 12px; color: var(--text-muted); width: 36px; text-align: right; flex-shrink: 0; }
 
   /* OBJECTION BANK */
   .objection-list { display: flex; flex-direction: column; gap: 12px; }
@@ -461,8 +520,8 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
 
-  /* GROWTH PLAN */
-  .growth-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+  /* GROWTH PLAN - kept for data compatibility */
+  .growth-tabs { display: none; }
   .growth-tab {
     padding: 7px 18px; border-radius: 8px; border: 1px solid var(--card-border);
     background: white; color: var(--text-muted); cursor: pointer; font-size: 13px; font-weight: 500;
@@ -530,6 +589,9 @@
   <div class="nav-item" onclick="showPage('ramp', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> Ramp Plan
   </div>
+  <div class="nav-item" onclick="showPage('myprogress', this)">
+    <span class="icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span> My Progress
+  </div>
   <div class="nav-item" onclick="showPage('flashcards', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1" fill="currentColor"/></svg></span> Flashcards
     <span class="nav-badge" id="due-badge">0</span>
@@ -541,14 +603,6 @@
   </div>
   <div class="nav-item" onclick="showPage('objections', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> Objection Bank
-  </div>
-  <div class="nav-item" onclick="showPage('growth', this)">
-    <span class="icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="4"/><line x1="12" y1="20" x2="12" y2="10"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span> Growth Plan
-  </div>
-
-  <div class="sidebar-section">Track</div>
-  <div class="nav-item" onclick="showPage('progress', this)">
-    <span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-dasharray="4 2.5"/></svg></span> Progress
   </div>
   <div class="nav-item" onclick="showPage('resources', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="8" y1="9" x2="8" y2="21"/></svg></span> Resources
@@ -686,12 +740,60 @@
   </div>
 
   <!-- PROGRESS -->
-  <div id="page-progress" class="page">
-    <div class="page-header">
-      <h2>📊 Progress</h2>
-      <p>Track your mastery across every topic.</p>
+  <div id="page-myprogress" class="page">
+    <div class="myprog-header">
+      <div class="myprog-title">
+        <h2>My Progress</h2>
+        <p>10-day ramp · treasury mastery · skills tracker</p>
+      </div>
+      <div class="myprog-stat-card">
+        <div>
+          <div class="myprog-stat-pct" id="mp-ramp-pct">—%</div>
+          <div class="myprog-stat-lbl">Ramp complete</div>
+        </div>
+        <div class="myprog-divider"></div>
+        <div>
+          <div class="myprog-stat-day" id="mp-day-label">—</div>
+          <div class="myprog-stat-lbl" id="mp-day-sub">of 10 · on track</div>
+        </div>
+      </div>
     </div>
-    <div class="progress-grid" id="progress-grid"></div>
+
+    <div class="myprog-timeline-card">
+      <div class="myprog-timeline-label">10-day ramp timeline · click any day to review its tasks</div>
+      <div class="myprog-timeline" id="mp-timeline"></div>
+    </div>
+
+    <div class="myprog-body">
+      <div class="myprog-tasks-card">
+        <div class="myprog-tasks-header">
+          <div class="myprog-tasks-title" id="mp-tasks-title">Day — · today's tasks</div>
+          <div class="myprog-tasks-badge" id="mp-tasks-badge">0 of 0 done</div>
+        </div>
+        <div id="mp-task-list"></div>
+        <div class="myprog-progress-bar-wrap">
+          <div class="myprog-progress-track"><div class="myprog-progress-fill" id="mp-task-bar" style="width:0%"></div></div>
+          <div class="myprog-progress-lbl" id="mp-task-pct">0% complete</div>
+        </div>
+      </div>
+
+      <div class="myprog-right">
+        <div class="myprog-mastery-card">
+          <div class="myprog-mastery-header">
+            <div class="myprog-mastery-title">Treasury mastery</div>
+            <div>
+              <div class="myprog-mastery-count" id="mp-mastered-count">—</div>
+              <div class="myprog-mastery-sub">cards mastered</div>
+            </div>
+          </div>
+          <div class="myprog-ch-grid" id="mp-ch-grid"></div>
+        </div>
+        <div class="myprog-skills-card">
+          <div class="myprog-skills-label">Skills &amp; Product</div>
+          <div id="mp-skills-rows"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- OBJECTION BANK -->
@@ -966,18 +1068,7 @@
   </div>
 
   <!-- GROWTH PLAN -->
-  <div id="page-growth" class="page">
-    <div class="page-header">
-      <h2>📈 Growth Plan</h2>
-      <p>Rate yourself honestly on each skill. 1 = just starting · 5 = sharp enough to teach it.</p>
-    </div>
-    <div class="growth-summary" id="growth-summary"></div>
-    <div class="growth-tabs">
-      <button class="growth-tab active" id="gtab-sales" onclick="switchGrowthTab('sales')">🎯 Sales Skills</button>
-      <button class="growth-tab" id="gtab-product" onclick="switchGrowthTab('product')">⚡ Nilus Product</button>
-    </div>
-    <div id="growth-content"></div>
-  </div>
+
 </main>
 
 <script>
@@ -1166,7 +1257,6 @@ const GROWTH_PLAN = {
 };
 
 let growthRatings = JSON.parse(localStorage.getItem('growthRatings') || '{}');
-let activeGrowthTab = 'sales';
 
 const OBJECTIONS = [
   {
@@ -1677,10 +1767,9 @@ function showPage(pageId, navEl) {
   if (pageId === 'dashboard') updateDashboard();
   if (pageId === 'flashcards') initFlashcards();
   if (pageId === 'ramp') renderRamp();
-  if (pageId === 'progress') renderProgress();
+  if (pageId === 'myprogress') renderMyProgress();
   if (pageId === 'objections') renderObjections();
   if (pageId === 'resources') renderResources();
-  if (pageId === 'growth') renderGrowthPlan();
 }
 
 // ===== DASHBOARD =====
@@ -2007,27 +2096,138 @@ function updateDueBadge() {
 }
 
 // ===== PROGRESS =====
-function renderProgress() {
-  const grid = document.getElementById('progress-grid');
-  const today = new Date().toISOString().split('T')[0];
-  grid.innerHTML = FLASHCARD_DATA.decks.map(deck => {
-    return deck.topics.map(topic => {
-      const total = topic.cards.length;
-      const mastered = topic.cards.filter(c => {
-        const s = cardProgress[c.id];
-        return s && s.easeFactor >= 2.5 && s.repetitions >= 3;
-      }).length;
-      const seen = topic.cards.filter(c => cardProgress[c.id]).length;
-      const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
-      return `<div class="progress-card">
-        <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">${deck.icon} ${deck.name}</div>
-        <h3>${topic.name}</h3>
-        <div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
-        <div class="prog-label"><span>${mastered}/${total} mastered</span><span>${pct}%</span></div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">${seen} seen · ${total - seen} unseen</div>
-      </div>`;
-    }).join('');
+function getTaskTag(task) {
+  const t = task.toLowerCase();
+  if (t.includes('flashcard') || t.includes(' ch ') || t.includes('ch1') || t.includes('ch2') || t.includes('ch3') || t.includes('ch4') || t.includes('ch5') || t.includes('ch6') || t.includes('chapter') || t.includes('read') || t.includes('treasury') || t.includes('afp') || t.includes('ctp') || t.includes('forecast') && t.includes('topic')) return 'treasury';
+  if (t.includes('nilus') || t.includes('platform') || t.includes('demo') || t.includes('module') || t.includes('workspace') || t.includes('recon') || t.includes('payment') || t.includes('bank management') || t.includes('product')) return 'product';
+  return 'process';
+}
+
+let taskProgress = JSON.parse(localStorage.getItem('taskProgress') || '{}');
+let mpSelectedDay = null;
+
+function toggleTask(day, idx) {
+  const key = 'd' + day + '_t' + idx;
+  taskProgress[key] = !taskProgress[key];
+  localStorage.setItem('taskProgress', JSON.stringify(taskProgress));
+  renderMyProgress();
+}
+
+function renderMyProgress() {
+  const day = getRampDay();
+  const viewDay = mpSelectedDay || day;
+  const pct = Math.round((day - 1) / 10 * 100);
+
+  document.getElementById('mp-ramp-pct').textContent = pct + '%';
+  document.getElementById('mp-day-label').textContent = 'Day ' + day;
+  document.getElementById('mp-day-sub').textContent = 'of 10 · ' + (day <= 10 ? 'on track' : 'complete');
+
+  // Timeline
+  const tl = document.getElementById('mp-timeline');
+  tl.innerHTML = Array.from({length: 10}, (_, i) => {
+    const d = i + 1;
+    const cls = d < day ? 'done' : d === day ? 'today' : 'future';
+    const lblCls = d === day ? 'today-lbl' : '';
+    const icon = d < day ? '✓' : d;
+    const lbl = d === day ? 'Today' : 'Day ' + d;
+    const active = d === viewDay ? 'outline:2px solid var(--purple);outline-offset:2px;border-radius:50%;' : '';
+    return `<div class="myprog-timeline-day" onclick="mpSelectDay(${d})">
+      <div class="myprog-day-circle ${cls}" style="${active}">${icon}</div>
+      <div class="myprog-day-lbl ${lblCls}">${lbl}</div>
+    </div>`;
   }).join('');
+
+  // Tasks for selected day
+  const rampDay = RAMP_PLAN[viewDay - 1];
+  const tasks = rampDay.tasks;
+  const doneCount = tasks.filter((_, i) => taskProgress['d' + viewDay + '_t' + i]).length;
+  const taskPct = tasks.length > 0 ? Math.round(doneCount / tasks.length * 100) : 0;
+
+  document.getElementById('mp-tasks-title').textContent = 'Day ' + viewDay + ' · today\'s tasks';
+  document.getElementById('mp-tasks-badge').textContent = doneCount + ' of ' + tasks.length + ' done';
+  document.getElementById('mp-task-bar').style.width = taskPct + '%';
+  document.getElementById('mp-task-pct').textContent = taskPct + '% complete';
+
+  document.getElementById('mp-task-list').innerHTML = tasks.map((task, i) => {
+    const done = !!taskProgress['d' + viewDay + '_t' + i];
+    const tag = getTaskTag(task);
+    return `<div class="myprog-task">
+      <div class="myprog-task-check ${done ? 'done' : 'undone'}" onclick="toggleTask(${viewDay}, ${i})">${done ? '✓' : ''}</div>
+      <div class="myprog-task-text ${done ? 'done' : ''}">${task}</div>
+      <div class="myprog-task-tag tag-${tag}">${tag.charAt(0).toUpperCase() + tag.slice(1)}</div>
+    </div>`;
+  }).join('');
+
+  // Chapter mastery grid (treasury domain only, chapters 1-20)
+  const treasuryDeck = FLASHCARD_DATA.decks.find(d => d.id === 'treasury_domain');
+  let totalMastered = 0;
+  const chData = {};
+  if (treasuryDeck) {
+    treasuryDeck.topics.forEach(topic => {
+      const chMatch = topic.id.match(/ch_(\d+)/);
+      if (!chMatch) return;
+      const chNum = parseInt(chMatch[1]);
+      const total = topic.cards.length;
+      const mastered = topic.cards.filter(c => { const s = cardProgress[c.id]; return s && s.easeFactor >= 2.5 && s.repetitions >= 3; }).length;
+      const due = topic.cards.filter(c => { const s = cardProgress[c.id]; return s && s.nextReview && s.nextReview <= new Date().toISOString().split('T')[0]; }).length;
+      totalMastered += mastered;
+      if (!chData[chNum] || chData[chNum].total < total) {
+        chData[chNum] = { total, mastered, due };
+      }
+    });
+  }
+
+  document.getElementById('mp-mastered-count').textContent = totalMastered;
+
+  const chGrid = document.getElementById('mp-ch-grid');
+  chGrid.innerHTML = Array.from({length: 20}, (_, i) => {
+    const ch = i + 1;
+    const d = chData[ch];
+    let cls = 'not-started';
+    if (d) {
+      const pctM = d.total > 0 ? d.mastered / d.total : 0;
+      if (pctM >= 0.8) cls = 'mastered';
+      else if (pctM >= 0.4) cls = 'learning';
+      else if (d.mastered > 0 || d.due > 0) cls = 'struggling';
+      else cls = 'learning';
+    }
+    return `<div class="myprog-ch-cell ${cls}" title="Chapter ${ch}">
+      <div class="myprog-ch-num">${ch}</div>
+      <div class="myprog-ch-bar"></div>
+    </div>`;
+  }).join('');
+
+  // Skills & Product bars
+  const allSales = GROWTH_PLAN.sales.flatMap(s => s.items);
+  const allProduct = GROWTH_PLAN.product.flatMap(s => s.items);
+  const salesPct = allSales.length > 0 ? Math.round(allSales.reduce((s, i) => s + (growthRatings[i.id] || 0), 0) / allSales.length / 5 * 100) : 0;
+  const productPct = allProduct.length > 0 ? Math.round(allProduct.reduce((s, i) => s + (growthRatings[i.id] || 0), 0) / allProduct.length / 5 * 100) : 0;
+  const objDeck = FLASHCARD_DATA.decks.find(d => d.id === 'sales_skills');
+  let objPct = 0;
+  if (objDeck) {
+    const objTopic = objDeck.topics.find(t => t.id && t.id.includes('obj'));
+    const allObjCards = objDeck.topics.flatMap(t => t.cards);
+    const masteredObj = allObjCards.filter(c => { const s = cardProgress[c.id]; return s && s.easeFactor >= 2.5 && s.repetitions >= 3; }).length;
+    objPct = allObjCards.length > 0 ? Math.round(masteredObj / allObjCards.length * 100) : 0;
+  }
+
+  const skills = [
+    { name: 'Sales skills', pct: salesPct, color: 'var(--purple)' },
+    { name: 'Nilus product', pct: productPct, color: '#059669' },
+    { name: 'Objections', pct: objPct, color: '#d97706' }
+  ];
+  document.getElementById('mp-skills-rows').innerHTML = skills.map(s => `
+    <div class="myprog-skill-row">
+      <div class="myprog-skill-name">${s.name}</div>
+      <div class="myprog-skill-track"><div class="myprog-skill-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+      <div class="myprog-skill-pct">${s.pct}%</div>
+    </div>
+  `).join('');
+}
+
+function mpSelectDay(d) {
+  mpSelectedDay = d;
+  renderMyProgress();
 }
 
 // ===== OBJECTIONS =====
@@ -2064,72 +2264,9 @@ function renderResources() {
 }
 
 
-// ===== GROWTH PLAN =====
-const RATING_LABELS = ['', 'Just starting', 'Getting there', 'Solid', 'Sharp', 'Can teach it'];
-const RATING_CLASSES = ['', 'status-1', 'status-2', 'status-3', 'status-4', 'status-5'];
-
-function switchGrowthTab(tab) {
-  activeGrowthTab = tab;
-  document.querySelectorAll('.growth-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('gtab-' + tab).classList.add('active');
-  renderGrowthContent();
-}
-
-function saveGrowthRating(id, rating) {
-  growthRatings[id] = rating;
-  localStorage.setItem('growthRatings', JSON.stringify(growthRatings));
-  renderGrowthPlan();
-}
-
-function renderGrowthPlan() {
-  renderGrowthSummary();
-  renderGrowthContent();
-}
-
-function renderGrowthSummary() {
-  const allItems = [...GROWTH_PLAN.sales, ...GROWTH_PLAN.product].flatMap(s => s.items);
-  const total = allItems.length;
-  const rated = allItems.filter(i => growthRatings[i.id]).length;
-  const mastered = allItems.filter(i => (growthRatings[i.id] || 0) >= 4).length;
-  const avgScore = rated > 0 ? (allItems.reduce((s, i) => s + (growthRatings[i.id] || 0), 0) / total).toFixed(1) : '—';
-
-  document.getElementById('growth-summary').innerHTML = `
-    <div class="growth-stat"><div class="gs-val">${total}</div><div class="gs-lbl">Total Skills</div></div>
-    <div class="growth-stat"><div class="gs-val">${rated}</div><div class="gs-lbl">Rated</div></div>
-    <div class="growth-stat"><div class="gs-val" style="color:var(--green)">${mastered}</div><div class="gs-lbl">Mastered (4+)</div></div>
-    <div class="growth-stat"><div class="gs-val">${avgScore}</div><div class="gs-lbl">Avg Rating</div></div>
-    <div class="growth-stat"><div class="gs-val">${Math.round(rated/total*100)}%</div><div class="gs-lbl">Assessed</div></div>
-  `;
-}
-
-function renderGrowthContent() {
-  const sections = GROWTH_PLAN[activeGrowthTab];
-  document.getElementById('growth-content').innerHTML = sections.map(section => `
-    <div class="growth-section">
-      <div class="growth-section-title">${section.area}</div>
-      <div class="growth-items-grid">
-        ${section.items.map(item => {
-          const rating = growthRatings[item.id] || 0;
-          const label = RATING_LABELS[rating] || 'Not rated';
-          const cls = RATING_CLASSES[rating] || '';
-          const stars = [1,2,3,4,5].map(n =>
-            `<span class="growth-star ${rating >= n ? 'filled' : ''}" onclick="saveGrowthRating('${item.id}', ${n})" title="${RATING_LABELS[n]}">★</span>`
-          ).join('');
-          return `<div class="growth-item">
-            <div class="growth-item-header">
-              <span class="growth-item-name">${item.name}</span>
-              <span class="growth-item-status ${cls}">${rating > 0 ? label : 'Not rated'}</span>
-            </div>
-            <div class="growth-rating">${stars}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-  `).join('');
-}
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','ramp','flashcards','competitive','objections','growth','progress','resources'];
+const VALID_PAGES = ['dashboard','ramp','flashcards','competitive','objections','myprogress','resources'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
 if (initPage !== 'dashboard') {
   showPage(initPage);
