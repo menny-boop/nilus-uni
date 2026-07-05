@@ -49,6 +49,12 @@
   .nav-badge { margin-left: auto; font-size: 10px; background: var(--purple); color: white; padding: 1px 6px; border-radius: 10px; }
   .sidebar-subsection { padding: 10px 20px 3px 22px; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.18); font-weight: 600; }
   .nav-ext { margin-left: auto; font-size: 10px; opacity: 0.3; }
+  .sidebar-section { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding-right: 16px; user-select: none; }
+  .sidebar-section:hover { color: rgba(255,255,255,0.5); }
+  .nav-chevron { font-size: 9px; opacity: 0.4; transition: transform 0.22s ease; display: inline-block; }
+  .nav-chevron.closed { transform: rotate(-90deg); }
+  .nav-group { overflow: hidden; max-height: 1200px; transition: max-height 0.3s ease; }
+  .nav-group.closed { max-height: 0; }
 
   /* COMPETITIVE INTEL */
   .comp-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 20px; }
@@ -584,7 +590,8 @@
     <p>Menny Levy · AE</p>
   </div>
 
-  <div class="sidebar-section">General</div>
+  <div class="sidebar-section" onclick="toggleNavGroup('general')">General <span class="nav-chevron" id="nav-chevron-general">▾</span></div>
+  <div class="nav-group" id="nav-group-general">
   <div class="nav-item active" onclick="showPage('dashboard', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span> Dashboard
   </div>
@@ -621,8 +628,10 @@
   <div class="nav-item" onclick="showPage('orgchart', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="12" y1="6" x2="12" y2="11"/><line x1="4" y1="14" x2="20" y2="14"/><rect x="1" y="14" width="6" height="4" rx="1"/><rect x="9" y="14" width="6" height="4" rx="1"/><rect x="17" y="14" width="6" height="4" rx="1"/></svg></span> Org Chart
   </div>
+  </div><!-- end nav-group-general -->
 
-  <div class="sidebar-section">BDR</div>
+  <div class="sidebar-section" onclick="toggleNavGroup('bdr')">BDR <span class="nav-chevron" id="nav-chevron-bdr">▾</span></div>
+  <div class="nav-group" id="nav-group-bdr">
   <div class="sidebar-subsection">Industry & Product Knowledge</div>
   <div class="nav-item" onclick="window.open('https://docs.google.com/document/d/1UXUt2eHmG0lKMpBmJ8bW6izO7c44joVdAb5UTvAl_2I/edit?tab=t.guep1967cwpp','_blank')">
     <span class="icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> ICP <span class="nav-ext">↗</span>
@@ -667,6 +676,7 @@
   <div class="nav-item" onclick="window.open('https://docs.google.com/document/d/1UXUt2eHmG0lKMpBmJ8bW6izO7c44joVdAb5UTvAl_2I/edit?tab=t.5vtg2531svn3','_blank')">
     <span class="icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> Value & Messaging <span class="nav-ext">↗</span>
   </div>
+  </div><!-- end nav-group-bdr -->
 </nav>
 
 <!-- MAIN CONTENT -->
@@ -2472,6 +2482,30 @@ function renderResources() {
 
 
 
+// ===== NAV GROUPS =====
+let navGroupState = JSON.parse(localStorage.getItem('navGroupState') || '{"general":true,"bdr":true}');
+
+function toggleNavGroup(id) {
+  navGroupState[id] = !navGroupState[id];
+  localStorage.setItem('navGroupState', JSON.stringify(navGroupState));
+  applyNavGroupState();
+}
+
+function applyNavGroupState() {
+  ['general','bdr'].forEach(id => {
+    const group = document.getElementById('nav-group-' + id);
+    const chevron = document.getElementById('nav-chevron-' + id);
+    if (!group) return;
+    if (navGroupState[id]) {
+      group.classList.remove('closed');
+      if (chevron) chevron.classList.remove('closed');
+    } else {
+      group.classList.add('closed');
+      if (chevron) chevron.classList.add('closed');
+    }
+  });
+}
+
 // ===== INIT =====
 const VALID_PAGES = ['dashboard','ramp','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
@@ -2480,6 +2514,7 @@ if (initPage !== 'dashboard') {
 } else {
   updateDashboard();
 }
+applyNavGroupState();
 updateDueBadge();
 </script>
 </body>
