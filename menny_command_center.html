@@ -2699,20 +2699,22 @@ const MEETING_PLAYBOOKS = [
     plan: 'Lead a brief qualification call, max 15 minutes, preferably over Zoom to do further discovery before AE handoff.',
     objectives: 'Qualify against BANT. Clear budget confirmation is not a requirement.',
     materials: 'None.',
+    collateral: '',
     postMeeting: 'Ensure the prospect has accepted the calendar invite for the AE intro.' },
   { num: '1', name: 'Nilus Intro', numClass: '', owner: 'AE', ownerClass: 'ae',
     purpose: 'Validate real interest, a real need that maps to Nilus, and a workable prospect. Confirm that this is an active project.',
     plan: '<b>5–7 min</b> — Further discovery: confirm the most crucial items and required proof points.<br><br><b>5 min</b> — Deck walkthrough (5–7 slides): 1–2 slides summarising their pain points and downstream consequences, then 2–3 slides on Nilus and why we are the right solution for them.<br><br><b>10–12 min</b> — High-level vision demo that directly reflects their pain points.<br><br><b>Remaining time</b> — Feedback and workflow brainstorming. Schedule the Workflow Deepdive and begin understanding their internal process and key stakeholders in the deal.',
     objectives: '• Pain confirmed in the prospect\'s own words.<br>• Prospect acknowledges that the scope of Nilus maps to that pain and could provide real value for their team.<br>• Schedule a 1-hour Workflow Deepdive — we will open up their Excel workbooks to understand their mode of treasury, fully scope the project, and lay the groundwork for the Custom Demo.',
     materials: 'Nilus Intro Deck · Live Vision Demo.',
+    collateral: '',
     postMeeting: 'NDA — preferably the prospect\'s own standard NDA.' },
-  { num: '2', name: 'Workflow Deepdive',numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '3', name: 'Custom Demo',      numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '4', name: 'Proposal',               numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '5', name: 'Vendor of Choice',       numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '6', name: 'Due Diligence',          numClass: 'support', owner: 'AE + Support', ownerClass: 'support', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '7', name: 'Contract',               numClass: 'legal',   owner: 'AE + Legal',  ownerClass: 'legal',   purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
-  { num: '8', name: 'Closed Won',             numClass: 'closed',  owner: 'AE',           ownerClass: 'closed',  purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '2', name: 'Workflow Deepdive',numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '3', name: 'Custom Demo',      numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '4', name: 'Proposal',               numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '5', name: 'Vendor of Choice',       numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '6', name: 'Due Diligence',          numClass: 'support', owner: 'AE + Support', ownerClass: 'support', purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '7', name: 'Contract',               numClass: 'legal',   owner: 'AE + Legal',  ownerClass: 'legal',   purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
+  { num: '8', name: 'Closed Won',             numClass: 'closed',  owner: 'AE',           ownerClass: 'closed',  purpose: '', plan: '', objectives: '', materials: '', collateral: '', postMeeting: '' },
 ];
 
 let mpActiveStage = 0;
@@ -2741,6 +2743,7 @@ function renderMPStage() {
     { label: 'Plan',                       value: s.plan },
     { label: 'Objectives',                 value: s.objectives },
     { label: 'Presentation Materials',     value: s.materials },
+    { label: 'Nilus Collateral',           value: s.collateral },
     { label: 'Post-Meeting Requirements',  value: s.postMeeting },
   ];
   content.innerHTML = `
