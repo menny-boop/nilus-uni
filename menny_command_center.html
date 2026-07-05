@@ -49,8 +49,8 @@
   .nav-badge { margin-left: auto; font-size: 10px; background: var(--purple); color: white; padding: 1px 6px; border-radius: 10px; }
   .sidebar-subsection { padding: 10px 20px 3px 22px; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.18); font-weight: 600; }
   .nav-ext { margin-left: auto; font-size: 10px; opacity: 0.3; }
-  .sidebar-section { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding-right: 16px; user-select: none; }
-  .sidebar-section:hover { color: rgba(255,255,255,0.5); }
+  .sidebar-section { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding-right: 16px; user-select: none; font-size: 12px; letter-spacing: 0.8px; color: rgba(255,255,255,0.45); }
+  .sidebar-section:hover { color: rgba(255,255,255,0.65); }
   .nav-chevron { font-size: 9px; opacity: 0.4; transition: transform 0.22s ease; display: inline-block; }
   .nav-chevron.closed { transform: rotate(-90deg); }
   .nav-group { overflow: hidden; max-height: 1200px; transition: max-height 0.3s ease; }
@@ -590,7 +590,7 @@
     <p>Menny Levy · AE</p>
   </div>
 
-  <div class="sidebar-section" onclick="toggleNavGroup('general')">General <span class="nav-chevron" id="nav-chevron-general">▾</span></div>
+  <div class="sidebar-section" onclick="toggleNavGroup('general')">📚 General <span class="nav-chevron" id="nav-chevron-general">▾</span></div>
   <div class="nav-group" id="nav-group-general">
   <div class="nav-item active" onclick="showPage('dashboard', this)">
     <span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span> Dashboard
@@ -630,7 +630,7 @@
   </div>
   </div><!-- end nav-group-general -->
 
-  <div class="sidebar-section" onclick="toggleNavGroup('bdr')">BDR <span class="nav-chevron" id="nav-chevron-bdr">▾</span></div>
+  <div class="sidebar-section" onclick="toggleNavGroup('bdr')">📞 BDR <span class="nav-chevron" id="nav-chevron-bdr">▾</span></div>
   <div class="nav-group" id="nav-group-bdr">
   <div class="sidebar-subsection">Industry & Product Knowledge</div>
   <div class="nav-item" onclick="window.open('https://docs.google.com/document/d/1UXUt2eHmG0lKMpBmJ8bW6izO7c44joVdAb5UTvAl_2I/edit?tab=t.guep1967cwpp','_blank')">
