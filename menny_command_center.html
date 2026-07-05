@@ -483,7 +483,6 @@
   .mp-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
   .mp-list li { display: flex; align-items: flex-start; gap: 9px; line-height: 1.5; }
   .mp-list li::before { content: '•'; color: var(--purple); font-weight: 700; flex-shrink: 0; }
-  .mp-time { display: inline-block; background: rgba(124,58,237,0.1); color: var(--purple); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 6px; white-space: nowrap; vertical-align: middle; }
   .sp-stage-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 32px 36px; box-shadow: var(--card-shadow); }
   .sp-stage-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .sp-stage-num { width: 44px; height: 44px; border-radius: 50%; background: var(--purple); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
@@ -2707,7 +2706,7 @@ const MEETING_PLAYBOOKS = [
     postMeeting:['Ensure the prospect has accepted the calendar invite for the AE intro.'] },
   { num: '1', name: 'Nilus Intro', numClass: '', owner: 'AE', ownerClass: 'ae',
     purpose:    ['Validate real interest, a real need that maps to Nilus, and a workable prospect.', 'Confirm that this is an active project.'],
-    plan:       ['<span class="mp-time">5–7 min</span> Further discovery — confirm the most crucial items and required proof points.', '<span class="mp-time">5 min</span> Deck walkthrough — 5–7 slides: 1–2 slides summarising their pain points and downstream consequences, then 2–3 slides on Nilus and why we are the right solution for them.', '<span class="mp-time">10–12 min</span> Vision demo — high-level, directly reflecting their pain points.', '<span class="mp-time">Remaining time</span> Feedback and workflow brainstorming — schedule the Workflow Deepdive and begin understanding their internal process and key stakeholders in the deal.'],
+    plan:       ['<b>5–7 min:</b> Further discovery — confirm the most crucial items and required proof points.', '<b>5 min:</b> Deck walkthrough — 5–7 slides: 1–2 slides summarising their pain points and downstream consequences, then 2–3 slides on Nilus and why we are the right solution for them.', '<b>10–12 min:</b> Vision demo — high-level, directly reflecting their pain points.', '<b>Remaining time:</b> Feedback and workflow brainstorming — schedule the Workflow Deepdive and begin understanding their internal process and key stakeholders in the deal.'],
     objectives: ['Pain confirmed in the prospect\'s own words.', 'Prospect acknowledges that the scope of Nilus maps to that pain and could provide real value for their team.', 'Schedule a 1-hour Workflow Deepdive — we will open up their Excel workbooks to understand their mode of treasury, fully scope the project, and lay the groundwork for the Custom Demo.'],
     materials:  ['Nilus Intro Deck', 'Live Vision Demo'],
     collateral: ['Nilus Blog', 'Call Recording'],
