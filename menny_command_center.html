@@ -466,6 +466,30 @@
   .fc-deck-tab:hover { border-color: var(--purple); color: var(--text); }
   .fc-deck-tab.active { background: var(--purple); border-color: var(--purple); color: white; }
 
+  /* Sales Process page */
+  #sp-tabs { flex-wrap: wrap; }
+  .sp-stage-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 32px 36px; box-shadow: var(--card-shadow); }
+  .sp-stage-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .sp-stage-num { width: 44px; height: 44px; border-radius: 50%; background: var(--purple); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .sp-stage-num.bdr { background: #3b82f6; }
+  .sp-stage-num.support { background: #f59e0b; }
+  .sp-stage-num.legal { background: #ef4444; }
+  .sp-stage-num.closed { background: #10b981; }
+  .sp-stage-title { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .sp-owner-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; margin-top: 4px; }
+  .sp-owner-badge.bdr { background: rgba(59,130,246,0.12); color: #3b82f6; }
+  .sp-owner-badge.ae { background: rgba(124,58,237,0.12); color: var(--purple); }
+  .sp-owner-badge.support { background: rgba(245,158,11,0.12); color: #d97706; }
+  .sp-owner-badge.legal { background: rgba(239,68,68,0.12); color: #ef4444; }
+  .sp-owner-badge.closed { background: rgba(16,185,129,0.12); color: #059669; }
+  .sp-section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 14px; }
+  .sp-activities { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .sp-activities li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); line-height: 1.5; }
+  .sp-bullet { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 6px; }
+  .sp-bullet.bdr { background: #3b82f6; }
+  .sp-bullet.closed { background: #10b981; }
+  .sp-note { font-size: 12px; color: var(--text-muted); font-style: italic; margin-top: 6px; padding-left: 18px; }
+
   .fc-legend { display: flex; gap: 20px; margin-bottom: 24px; align-items: center; }
   .fc-legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-dim); }
   .fc-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -1238,8 +1262,9 @@
 
   <!-- STUB PAGES: Account Executive -->
   <div id="page-salesprocess" class="page">
-    <div class="page-header"><h2>Sales Process & Deal Stages</h2><p>How we move deals from first touch to closed won.</p></div>
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+    <div class="page-header"><h2>Sales Process & Deal Stages</h2><p>From first touch to closed won — every stage, every motion.</p></div>
+    <div class="fc-deck-tabs" id="sp-tabs"></div>
+    <div id="sp-content"></div>
   </div>
 
   <div id="page-meetingplaybooks" class="page">
@@ -2015,6 +2040,7 @@ function showPage(pageId, navEl) {
   if (pageId === 'myprogress') renderMyProgress();
   if (pageId === 'objections') renderObjections();
   if (pageId === 'resources') renderResources();
+  if (pageId === 'salesprocess') renderSalesProcess();
 }
 
 // ===== DASHBOARD =====
@@ -2513,6 +2539,143 @@ function renderMyProgress() {
 function mpSelectDay(d) {
   mpSelectedDay = d;
   renderMyProgress();
+}
+
+// ===== SALES PROCESS =====
+const SALES_PROCESS = [
+  {
+    num: '0', name: 'BDR — Lead Generation', owner: 'BDR', ownerClass: 'bdr', numClass: 'bdr',
+    activities: [
+      'Book a meeting at a target-profile company.',
+      'Run two motions: BDR outbound + BDR on marketing leads.',
+      'Cold outbound: 5–10 min max — no demo, no discovery.',
+      'Light qualification on inbound only: rule out interns and fakes.'
+    ]
+  },
+  {
+    num: '1', name: 'Need Validation', owner: 'AE', ownerClass: 'ae', numClass: '',
+    activities: [
+      'Strict 30-minute call: not more, not less.',
+      '5–7 slide high-level pitch: why Nilus, what we do.',
+      'Vision demo (~7 min, clickable screenshot deck — not live product).',
+      'Validate real interest, real need that maps to Nilus, workable prospect.',
+      'Lock the Stage 2 meeting before hanging up.'
+    ]
+  },
+  {
+    num: '2', name: 'Mutual Discovery', owner: 'AE', ownerClass: 'ae', numClass: '',
+    activities: [
+      '1+ hour meeting; can stretch across 1–5 meetings.',
+      'Customer walks through workflows: forecast, debt, payments, positioning, reporting.',
+      'Capture problems & negative business outcomes in prospect\'s own words.',
+      'Capture positive business outcomes / ideal state.',
+      'Surface buying process and how they buy.',
+      'Show some uniqueness — not the big customized demo.',
+      'Answer pricing with ranges only (banks, users).'
+    ]
+  },
+  {
+    num: '3', name: 'Solution Validation', owner: 'AE', ownerClass: 'ae', numClass: '',
+    activities: [
+      'Deliver the customized demo on prospect\'s workflows / data.',
+      'Demonstrate QED on each UBV (revenue, cost, risk, strategic) — don\'t just show.',
+      'Value Engineering maps solution to negative + positive outcomes.',
+      'Build the business case internally — not yet shown. Business case, not ROI.',
+      'Identify the champion; map the buying process.',
+      'Introduce implementation partner (Nilus / Nilus + consultant / partner-led). Never earlier.'
+    ]
+  },
+  {
+    num: '4', name: 'Proposal', owner: 'AE', ownerClass: 'ae', numClass: '',
+    activities: [
+      'Formalize the UBV: write it, send it, get customer agreement.',
+      'Build proposal deck: problem & negative consequences → positive outcomes → why us → business case → proof.',
+      'Offer the champion three CFO presentation options; let them pick.',
+      'Present the business case to the budget owner (CFO / Group Treasurer / Assistant Treasurer).',
+      'Offer three implementation options (Nilus / Nilus + consultant / partner-led).',
+      'Lock professional services scope in the proposal.'
+    ]
+  },
+  {
+    num: '5', name: 'Vendor of Choice', owner: 'AE', ownerClass: 'ae', numClass: '',
+    activities: [
+      'Revalidate timing of the deal.',
+      'Revalidate budget.',
+      'Revalidate signer and signing process.',
+      'Confirm the due diligence path and next steps.'
+    ]
+  },
+  {
+    num: '6', name: 'Due Diligence', owner: 'AE + Support', ownerClass: 'support', numClass: 'support',
+    activities: [
+      'Financials review.',
+      'Reference calls — prospect\'s CFO calls our customer\'s CFO.',
+      'IT deep dive.',
+      'Security review.'
+    ]
+  },
+  {
+    num: '7', name: 'Contract', owner: 'AE + Legal', ownerClass: 'legal', numClass: 'legal',
+    activities: [
+      'Send the contracts.',
+      'Legal review and negotiation.'
+    ]
+  },
+  {
+    num: '8', name: 'Closed Won', owner: 'AE', ownerClass: 'closed', numClass: 'closed',
+    activities: [
+      'Deal is signed and countersigned.',
+      'Hand off to Customer Success for onboarding.',
+      'Log final notes and update CRM.',
+      'Celebrate. 🎉'
+    ]
+  }
+];
+
+let spActiveStage = 0;
+
+function renderSalesProcess() {
+  const tabs = document.getElementById('sp-tabs');
+  const content = document.getElementById('sp-content');
+  if (!tabs || !content) return;
+
+  tabs.innerHTML = SALES_PROCESS.map((s, i) => `
+    <div class="fc-deck-tab${i === spActiveStage ? ' active' : ''}" onclick="showSPStage(${i})">${s.num} · ${s.name}</div>
+  `).join('');
+
+  renderSPStage();
+}
+
+function showSPStage(idx) {
+  spActiveStage = idx;
+  document.querySelectorAll('#sp-tabs .fc-deck-tab').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  renderSPStage();
+}
+
+function renderSPStage() {
+  const s = SALES_PROCESS[spActiveStage];
+  const content = document.getElementById('sp-content');
+  const bulletClass = s.numClass || '';
+  content.innerHTML = `
+    <div class="sp-stage-card">
+      <div class="sp-stage-header">
+        <div class="sp-stage-num ${s.numClass}">${s.num}</div>
+        <div>
+          <div class="sp-stage-title">${s.name}</div>
+          <span class="sp-owner-badge ${s.ownerClass}">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            ${s.owner}
+          </span>
+        </div>
+      </div>
+      <div class="sp-section-label">Key Activities</div>
+      <ul class="sp-activities">
+        ${s.activities.map(a => `<li><span class="sp-bullet ${bulletClass}"></span><span>${a}</span></li>`).join('')}
+      </ul>
+    </div>
+  `;
 }
 
 // ===== OBJECTIONS =====
