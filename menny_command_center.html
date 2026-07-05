@@ -468,6 +468,18 @@
 
   /* Sales Process page */
   #sp-tabs { flex-wrap: wrap; }
+  #mp-tabs { flex-wrap: wrap; }
+
+  /* Meeting Playbooks table */
+  .mp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; box-shadow: var(--card-shadow); overflow: hidden; }
+  .mp-stage-header { display: flex; align-items: center; gap: 14px; padding: 24px 28px; border-bottom: 1px solid var(--card-border); }
+  .mp-table { width: 100%; border-collapse: collapse; }
+  .mp-table tr { border-bottom: 1px solid var(--card-border); }
+  .mp-table tr:last-child { border-bottom: none; }
+  .mp-table td { padding: 18px 28px; vertical-align: top; font-size: 14px; line-height: 1.6; }
+  .mp-table td:first-child { width: 200px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); white-space: nowrap; background: rgba(0,0,0,0.02); border-right: 1px solid var(--card-border); }
+  .mp-table td:last-child { color: var(--text); }
+  .mp-placeholder { color: var(--text-muted); font-style: italic; }
   .sp-stage-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 32px 36px; box-shadow: var(--card-shadow); }
   .sp-stage-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .sp-stage-num { width: 44px; height: 44px; border-radius: 50%; background: var(--purple); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
@@ -1268,8 +1280,9 @@
   </div>
 
   <div id="page-meetingplaybooks" class="page">
-    <div class="page-header"><h2>Meeting Playbooks</h2><p>Discovery, demo, and champion call frameworks.</p></div>
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+    <div class="page-header"><h2>Meeting Playbooks</h2><p>What to do, say, and deliver at every deal stage.</p></div>
+    <div class="fc-deck-tabs" id="mp-tabs"></div>
+    <div id="mp-content"></div>
   </div>
 
   <div id="page-discoverybank" class="page">
@@ -2041,6 +2054,7 @@ function showPage(pageId, navEl) {
   if (pageId === 'objections') renderObjections();
   if (pageId === 'resources') renderResources();
   if (pageId === 'salesprocess') renderSalesProcess();
+  if (pageId === 'meetingplaybooks') renderMeetingPlaybooks();
 }
 
 // ===== DASHBOARD =====
@@ -2674,6 +2688,71 @@ function renderSPStage() {
       <ul class="sp-activities">
         ${s.activities.map(a => `<li><span class="sp-bullet ${bulletClass}"></span><span>${a}</span></li>`).join('')}
       </ul>
+    </div>
+  `;
+}
+
+// ===== MEETING PLAYBOOKS =====
+const MEETING_PLAYBOOKS = [
+  { num: '0', name: 'BDR — Lead Generation', numClass: 'bdr', owner: 'BDR', ownerClass: 'bdr', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '1', name: 'Need Validation',        numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '2', name: 'Mutual Discovery',       numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '3', name: 'Solution Validation',    numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '4', name: 'Proposal',               numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '5', name: 'Vendor of Choice',       numClass: '',    owner: 'AE',  ownerClass: 'ae', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '6', name: 'Due Diligence',          numClass: 'support', owner: 'AE + Support', ownerClass: 'support', purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '7', name: 'Contract',               numClass: 'legal',   owner: 'AE + Legal',  ownerClass: 'legal',   purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+  { num: '8', name: 'Closed Won',             numClass: 'closed',  owner: 'AE',           ownerClass: 'closed',  purpose: '', plan: '', objectives: '', materials: '', postMeeting: '' },
+];
+
+let mpActiveStage = 0;
+
+function renderMeetingPlaybooks() {
+  const tabs = document.getElementById('mp-tabs');
+  const content = document.getElementById('mp-content');
+  if (!tabs || !content) return;
+  tabs.innerHTML = MEETING_PLAYBOOKS.map((s, i) => `
+    <div class="fc-deck-tab${i === mpActiveStage ? ' active' : ''}" onclick="showMPStage(${i})">${s.num} · ${s.name}</div>
+  `).join('');
+  renderMPStage();
+}
+
+function showMPStage(idx) {
+  mpActiveStage = idx;
+  document.querySelectorAll('#mp-tabs .fc-deck-tab').forEach((el, i) => el.classList.toggle('active', i === idx));
+  renderMPStage();
+}
+
+function renderMPStage() {
+  const s = MEETING_PLAYBOOKS[mpActiveStage];
+  const content = document.getElementById('mp-content');
+  const rows = [
+    { label: 'Purpose',                    value: s.purpose },
+    { label: 'Plan',                       value: s.plan },
+    { label: 'Objectives',                 value: s.objectives },
+    { label: 'Presentation Materials',     value: s.materials },
+    { label: 'Post-Meeting Requirements',  value: s.postMeeting },
+  ];
+  content.innerHTML = `
+    <div class="mp-card">
+      <div class="mp-stage-header">
+        <div class="sp-stage-num ${s.numClass}">${s.num}</div>
+        <div>
+          <div class="sp-stage-title">${s.name}</div>
+          <span class="sp-owner-badge ${s.ownerClass}">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            ${s.owner}
+          </span>
+        </div>
+      </div>
+      <table class="mp-table">
+        ${rows.map(r => `
+          <tr>
+            <td>${r.label}</td>
+            <td>${r.value || '<span class="mp-placeholder">Coming soon</span>'}</td>
+          </tr>
+        `).join('')}
+      </table>
     </div>
   `;
 }
