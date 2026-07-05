@@ -677,6 +677,37 @@
     <span class="icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> Value & Messaging <span class="nav-ext">↗</span>
   </div>
   </div><!-- end nav-group-bdr -->
+
+  <div class="sidebar-section" onclick="toggleNavGroup('ae')"><span class="sidebar-section-inner"><span class="sidebar-section-icon"><svg viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 0-3 3l2.5 2.5"/><path d="M11 11 8.5 8.5a1 1 0 0 0-1.42 0L3 13"/><path d="m13 10-2.5-2.5a1 1 0 0 0-1.41 0l-4 4"/></svg></span>Account Executive</span><span class="nav-chevron" id="nav-chevron-ae">▾</span></div>
+  <div class="nav-group" id="nav-group-ae">
+    <div class="nav-item" onclick="showPage('salesprocess', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span> Sales Process & Deal Stages
+    </div>
+    <div class="nav-item" onclick="showPage('meetingplaybooks', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span> Meeting Playbooks
+    </div>
+    <div class="nav-item" onclick="showPage('discoverybank', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span> Discovery Question Bank
+    </div>
+    <div class="nav-item" onclick="showPage('objectionbank', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> Objection Bank
+    </div>
+    <div class="nav-item" onclick="showPage('pricingpackaging', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> Pricing & Packaging
+    </div>
+    <div class="nav-item" onclick="showPage('negotiation', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></span> Negotiation Give/Get
+    </div>
+    <div class="nav-item" onclick="showPage('proposalcontract', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span> Proposal & Contract
+    </div>
+    <div class="nav-item" onclick="showPage('mutualactionplan', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span> Mutual Action Plan
+    </div>
+    <div class="nav-item" onclick="showPage('forecasting', this)">
+      <span class="icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span> Forecasting & Pipeline
+    </div>
+  </div><!-- end nav-group-ae -->
 </nav>
 
 <!-- MAIN CONTENT -->
@@ -1203,6 +1234,52 @@
       <div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div>
       <div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div>
     </div>
+  </div>
+
+  <!-- STUB PAGES: Account Executive -->
+  <div id="page-salesprocess" class="page">
+    <div class="page-header"><h2>Sales Process & Deal Stages</h2><p>How we move deals from first touch to closed won.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-meetingplaybooks" class="page">
+    <div class="page-header"><h2>Meeting Playbooks</h2><p>Discovery, demo, and champion call frameworks.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-discoverybank" class="page">
+    <div class="page-header"><h2>Discovery Question Bank</h2><p>Questions that uncover pain, power, and urgency.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-objectionbank" class="page">
+    <div class="page-header"><h2>Objection Bank</h2><p>Deal-stage objections and how to handle them.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-pricingpackaging" class="page">
+    <div class="page-header"><h2>Pricing & Packaging</h2><p>How Nilus is priced, packaged, and positioned on value.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-negotiation" class="page">
+    <div class="page-header"><h2>Negotiation Give/Get Framework</h2><p>What to offer, what to protect, and how to close on terms.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-proposalcontract" class="page">
+    <div class="page-header"><h2>Proposal & Contract Process</h2><p>From verbal yes to signed order form.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-mutualactionplan" class="page">
+    <div class="page-header"><h2>Mutual Action Plan Template</h2><p>Shared milestones that keep deals on track.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-forecasting" class="page">
+    <div class="page-header"><h2>Forecasting & Pipeline Hygiene</h2><p>Keep your pipeline accurate, healthy, and predictable.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
   </div>
 
 </main>
@@ -2498,7 +2575,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'dashboard';
 if (initPage !== 'dashboard') {
   showPage(initPage);
