@@ -488,6 +488,19 @@
   .ob-link { color: var(--purple); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   .ob-link:hover { opacity: 0.8; }
 
+  /* Customer List table */
+  .cl-search-wrap { margin-bottom: 16px; }
+  .cl-search { width: 100%; max-width: 360px; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text); font-size: 14px; outline: none; }
+  .cl-search:focus { border-color: var(--purple); }
+  .cl-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--card-bg); }
+  .cl-table thead th { padding: 13px 18px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); background: var(--card-bg); border-bottom: 1px solid var(--card-border); white-space: nowrap; position: sticky; top: 0; }
+  .cl-table tbody tr { border-bottom: 1px solid var(--card-border); transition: background 0.1s; }
+  .cl-table tbody tr:last-child { border-bottom: none; }
+  .cl-table tbody tr:hover { background: rgba(124,58,237,0.04); }
+  .cl-table tbody td { padding: 13px 18px; vertical-align: top; line-height: 1.5; color: var(--text); }
+  .cl-table tbody td:first-child { font-weight: 600; white-space: nowrap; }
+  .cl-empty { padding: 32px; text-align: center; color: var(--text-muted); font-size: 14px; }
+
   /* Video grid */
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
   .video-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }
@@ -1321,8 +1334,23 @@
   </div>
 
   <div id="page-ind-customerlist" class="page">
-    <div class="page-header"><h2>Customer List</h2><p>Our existing customers and key accounts.</p></div>
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+    <div class="page-header"><h2>Customer List</h2><p>Our existing customers — study their profiles to find signals you can replicate.</p></div>
+    <div class="cl-search-wrap">
+      <input class="cl-search" id="cl-search" type="text" placeholder="Search customers…" oninput="filterCustomers()" />
+    </div>
+    <div style="overflow-x:auto;border-radius:14px;border:1px solid var(--card-border);box-shadow:var(--card-shadow)">
+      <table class="cl-table" id="cl-table">
+        <thead>
+          <tr>
+            <th>Company Name</th>
+            <th>Industry</th>
+            <th>Why They Need Nilus</th>
+            <th>Signals to Replicate</th>
+          </tr>
+        </thead>
+        <tbody id="cl-tbody"></tbody>
+      </table>
+    </div>
   </div>
 
   <div id="page-ind-relatedindustries" class="page">
@@ -2129,6 +2157,7 @@ function showPage(pageId, navEl) {
   // onboarding is the default landing page
   if (pageId === 'flashcards') initFlashcards();
   if (pageId === 'onboarding') renderOnboarding();
+  if (pageId === 'ind-customerlist') renderCustomerList();
   if (pageId === 'myprogress') renderMyProgress();
   if (pageId === 'objections') renderObjections();
   if (pageId === 'resources') renderResources();
@@ -2632,6 +2661,95 @@ function renderMyProgress() {
 function mpSelectDay(d) {
   mpSelectedDay = d;
   renderMyProgress();
+}
+
+// ===== CUSTOMER LIST =====
+const CUSTOMER_LIST = [
+  { name: '2nd Swing',              industry: '', why: '', signals: '' },
+  { name: 'Acceldata',              industry: '', why: '', signals: '' },
+  { name: 'Accelerated Brands',     industry: '', why: '', signals: '' },
+  { name: 'Alloy',                  industry: '', why: '', signals: '' },
+  { name: 'Altus Power',            industry: '', why: '', signals: '' },
+  { name: 'Antidote Health',        industry: '', why: '', signals: '' },
+  { name: 'Appsflyer',              industry: '', why: '', signals: '' },
+  { name: 'At-Bay',                 industry: '', why: '', signals: '' },
+  { name: 'Axonious',               industry: '', why: '', signals: '' },
+  { name: 'Bringg',                 industry: '', why: '', signals: '' },
+  { name: 'Butternut Box',          industry: '', why: '', signals: '' },
+  { name: 'Cloudinary',             industry: '', why: '', signals: '' },
+  { name: 'Cogentrix Energy',       industry: '', why: '', signals: '' },
+  { name: 'Coralogix',              industry: '', why: '', signals: '' },
+  { name: 'Cyera',                  industry: '', why: '', signals: '' },
+  { name: 'Diesenhaus',             industry: '', why: '', signals: '' },
+  { name: 'DoIT',                   industry: '', why: '', signals: '' },
+  { name: 'Eden Gallery',           industry: '', why: '', signals: '' },
+  { name: 'Edikted',                industry: '', why: '', signals: '' },
+  { name: 'Elementor',              industry: '', why: '', signals: '' },
+  { name: 'Flare',                  industry: '', why: '', signals: '' },
+  { name: 'Flow Control Group',     industry: '', why: '', signals: '' },
+  { name: 'Glossier',               industry: '', why: '', signals: '' },
+  { name: 'Guesty',                 industry: '', why: '', signals: '' },
+  { name: 'Hailo',                  industry: '', why: '', signals: '' },
+  { name: 'HiBob',                  industry: '', why: '', signals: '' },
+  { name: 'Internova',              industry: '', why: '', signals: '' },
+  { name: 'Investing.com',          industry: '', why: '', signals: '' },
+  { name: 'Kaltura',                industry: '', why: '', signals: '' },
+  { name: 'Kandji',                 industry: '', why: '', signals: '' },
+  { name: 'Made In Cookware',       industry: '', why: '', signals: '' },
+  { name: 'Maelys',                 industry: '', why: '', signals: '' },
+  { name: 'Mariani Landscape',      industry: '', why: '', signals: '' },
+  { name: 'Modere',                 industry: '', why: '', signals: '' },
+  { name: 'MyHeritage',             industry: '', why: '', signals: '' },
+  { name: 'Nine Energy',            industry: '', why: '', signals: '' },
+  { name: 'Nooname Security',       industry: '', why: '', signals: '' },
+  { name: 'NorthStar Anesthesia',   industry: '', why: '', signals: '' },
+  { name: 'OpenWeb Tech',           industry: '', why: '', signals: '' },
+  { name: 'Optibus',                industry: '', why: '', signals: '' },
+  { name: 'OSF Digital',            industry: '', why: '', signals: '' },
+  { name: 'Planned Parenthood',     industry: '', why: '', signals: '' },
+  { name: 'Plarium',                industry: '', why: '', signals: '' },
+  { name: 'Playroll',               industry: '', why: '', signals: '' },
+  { name: 'Quantum Machines',       industry: '', why: '', signals: '' },
+  { name: 'Residents Home',         industry: '', why: '', signals: '' },
+  { name: 'Silentium',              industry: '', why: '', signals: '' },
+  { name: 'SimilarWeb',             industry: '', why: '', signals: '' },
+  { name: 'Skai',                   industry: '', why: '', signals: '' },
+  { name: 'Solink',                 industry: '', why: '', signals: '' },
+  { name: 'StackAdapt',             industry: '', why: '', signals: '' },
+  { name: 'Taboola',                industry: '', why: '', signals: '' },
+  { name: 'Tailor Brands',          industry: '', why: '', signals: '' },
+  { name: 'Varel Energy Solutions', industry: '', why: '', signals: '' },
+  { name: 'Varonis',                industry: '', why: '', signals: '' },
+  { name: 'Vertice',                industry: '', why: '', signals: '' },
+  { name: 'Vestwell Holdings',      industry: '', why: '', signals: '' },
+  { name: 'WalkMe',                 industry: '', why: '', signals: '' },
+  { name: 'WebPT',                  industry: '', why: '', signals: '' },
+  { name: 'Wiz',                    industry: '', why: '', signals: '' },
+  { name: 'Yotpo',                  industry: '', why: '', signals: '' },
+  { name: 'Zencity',                industry: '', why: '', signals: '' },
+];
+
+function renderCustomerList() {
+  filterCustomers();
+}
+
+function filterCustomers() {
+  const q = (document.getElementById('cl-search')?.value || '').toLowerCase();
+  const tbody = document.getElementById('cl-tbody');
+  if (!tbody) return;
+  const filtered = CUSTOMER_LIST.filter(c => c.name.toLowerCase().includes(q));
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="4" class="cl-empty">No customers match "${q}"</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(c => `
+    <tr>
+      <td>${c.name}</td>
+      <td>${c.industry || '<span style="color:var(--text-muted)">—</span>'}</td>
+      <td>${c.why || '<span style="color:var(--text-muted)">—</span>'}</td>
+      <td>${c.signals || '<span style="color:var(--text-muted)">—</span>'}</td>
+    </tr>
+  `).join('');
 }
 
 // ===== ONBOARDING CHECKLIST =====
