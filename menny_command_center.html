@@ -2296,6 +2296,10 @@ function scrollToBattleCard(id) {
 }
 
 function showPage(pageId, navEl) {
+  const prevHash = location.hash.slice(1);
+  const prevBase = prevHash.split('/')[0];
+  const prevSub  = prevHash.split('/')[1];
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + pageId).classList.add('active');
@@ -2316,6 +2320,10 @@ function showPage(pageId, navEl) {
   if (pageId === 'resources') renderResources();
   if (pageId === 'salesprocess') renderSalesProcess();
   if (pageId === 'meetingplaybooks') renderMeetingPlaybooks();
+  if (pageId === 'icppersonas') {
+    const subIdx = (prevBase === 'icppersonas' && prevSub) ? (parseInt(prevSub) || 0) : 0;
+    showICPTab(subIdx);
+  }
 }
 
 // ===== DASHBOARD =====
@@ -2820,6 +2828,7 @@ function mpSelectDay(d) {
 function showICPTab(idx) {
   document.querySelectorAll('#icp-tabs .fc-deck-tab').forEach((el, i) => el.classList.toggle('active', i === idx));
   document.querySelectorAll('.icp-tab-content').forEach((el, i) => el.style.display = i === idx ? '' : 'none');
+  history.replaceState(null, '', '#icppersonas' + (idx > 0 ? '/' + idx : ''));
 }
 
 // ===== CUSTOMER LIST =====
@@ -3328,7 +3337,9 @@ function applyNavGroupState() {
 
 // ===== INIT =====
 const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude','ind-personas','ind-customerlist','ind-relatedindustries','ind-erps'];
-const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
+const _rawHash = location.hash.slice(1);
+const _baseHash = _rawHash.split('/')[0];
+const initPage = VALID_PAGES.includes(_baseHash) ? _baseHash : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
 } else {
