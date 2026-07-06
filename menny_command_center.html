@@ -2585,6 +2585,7 @@ const ONBOARDING_TABS = [
   {
     id: 'systems',
     name: 'System Enablement',
+    description: 'Below you can find guides and videos on how to get up and running on each of these systems.',
     items: []
   },
   {
@@ -2628,7 +2629,8 @@ function renderOBTab() {
   const saved = JSON.parse(localStorage.getItem('ob_' + t.id) || '{}');
 
   if (!t.items.length) {
-    content.innerHTML = `<div class="ob-card" style="text-align:center;padding:48px"><div style="font-size:32px;margin-bottom:12px">🚧</div><div style="font-weight:600;margin-bottom:6px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Items for this section are being built out.</div></div>`;
+    const desc = t.description ? `<p style="font-size:14px;color:var(--text-muted);margin-bottom:24px">${t.description}</p>` : '';
+    content.innerHTML = `<div class="ob-card">${desc}<div style="text-align:center;padding:24px 0"><div style="font-size:32px;margin-bottom:12px">🚧</div><div style="font-weight:600;margin-bottom:6px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Items for this section are being built out.</div></div></div>`;
     return;
   }
 
@@ -2637,6 +2639,7 @@ function renderOBTab() {
 
   content.innerHTML = `
     <div class="ob-card">
+      ${t.description ? `<p style="font-size:14px;color:var(--text-muted);margin-bottom:20px">${t.description}</p>` : ''}
       <div class="ob-progress-label">${doneCount} of ${t.items.length} completed</div>
       <div class="ob-progress-bar-wrap"><div class="ob-progress-bar" style="width:${pct}%"></div></div>
       <div class="ob-list">
