@@ -488,6 +488,14 @@
   .ob-link { color: var(--purple); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   .ob-link:hover { opacity: 0.8; }
 
+  /* Video grid */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+  .video-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }
+  .video-card-title { font-size: 15px; font-weight: 600; padding: 18px 20px 14px; }
+  .video-embed-wrap { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; }
+  .video-embed-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .video-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text-muted); background: var(--card-border); }
+
   /* Meeting Playbooks table */
   .mp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; box-shadow: var(--card-shadow); overflow: hidden; }
   .mp-stage-header { display: flex; align-items: center; gap: 14px; padding: 24px 28px; border-bottom: 1px solid var(--card-border); }
@@ -1289,8 +1297,21 @@
 
   <!-- STUB PAGES: System Enablement -->
   <div id="page-sys-commandcenter" class="page">
-    <div class="page-header"><h2>Command Center</h2><p>Guides and resources to get up and running on the Nilus Command Center.</p></div>
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
+    <div class="page-header"><h2>Command Center</h2><p>Video guides to get you up and running.</p></div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-card-title">Integrations</div>
+        <div class="video-embed-wrap"><div class="video-placeholder">Video coming soon</div></div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-title">Prospecting</div>
+        <div class="video-embed-wrap"><div class="video-placeholder">Video coming soon</div></div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-title">Pipeline Management</div>
+        <div class="video-embed-wrap"><div class="video-placeholder">Video coming soon</div></div>
+      </div>
+    </div>
   </div>
 
   <!-- STUB PAGES: Account Executive -->
