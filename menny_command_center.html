@@ -488,6 +488,22 @@
   .ob-link { color: var(--purple); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   .ob-link:hover { opacity: 0.8; }
 
+  /* ICP & Personas page */
+  .icp-grid { display: flex; flex-direction: column; gap: 20px; }
+  .icp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px 28px; box-shadow: var(--card-shadow); }
+  .icp-card-placeholder { opacity: 0.6; }
+  .icp-card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 18px; }
+  .icp-stat-row { display: flex; gap: 32px; flex-wrap: wrap; }
+  .icp-stat { display: flex; align-items: flex-start; gap: 14px; min-width: 180px; }
+  .icp-stat-icon { color: var(--purple); opacity: 0.8; flex-shrink: 0; margin-top: 2px; }
+  .icp-stat-label { font-size: 12px; color: var(--text-muted); margin-bottom: 3px; }
+  .icp-stat-value { font-size: 16px; font-weight: 700; color: var(--text); }
+  .icp-stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .icp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .icp-chip { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; background: rgba(124,58,237,0.1); color: var(--purple); border: 1px solid rgba(124,58,237,0.2); }
+  .icp-chip-red { background: rgba(239,68,68,0.08); color: #ef4444; border-color: rgba(239,68,68,0.2); }
+  .icp-placeholder-text { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
   /* Customer List table */
   .cl-search-wrap { margin-bottom: 16px; }
   .cl-search { width: 100%; max-width: 360px; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text); font-size: 14px; outline: none; }
@@ -1261,11 +1277,82 @@
   </div>
 
   <div id="page-icppersonas" class="page">
-    <div class="page-header"><h2>🎯 ICP & Personas</h2><p>Who we sell to and what they care about.</p></div>
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)">
-      <div style="font-size:36px;margin-bottom:16px">🚧</div>
-      <div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div>
-      <div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div>
+    <div class="page-header"><h2>ICP & Personas</h2><p>Who we sell to — use this to qualify fast and walk away faster.</p></div>
+    <div class="icp-grid">
+
+      <!-- Company Profile -->
+      <div class="icp-card">
+        <div class="icp-card-label">Company Profile</div>
+        <div class="icp-stat-row">
+          <div class="icp-stat">
+            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div>
+              <div class="icp-stat-label">Revenue Range</div>
+              <div class="icp-stat-value">$200M – $5B</div>
+            </div>
+          </div>
+          <div class="icp-stat">
+            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div>
+              <div class="icp-stat-label">Headcount</div>
+              <div class="icp-stat-value">500+ employees</div>
+            </div>
+          </div>
+          <div class="icp-stat">
+            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div>
+              <div class="icp-stat-label">Banking Structure</div>
+              <div class="icp-stat-value">Global · Multi-currency</div>
+              <div class="icp-stat-sub">Operates beyond USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Industries -->
+      <div class="icp-card">
+        <div class="icp-card-label">Target Industries</div>
+        <div class="icp-chips">
+          <span class="icp-chip">SaaS</span>
+          <span class="icp-chip">Manufacturing</span>
+          <span class="icp-chip">Energy</span>
+          <span class="icp-chip">Retail</span>
+          <span class="icp-chip">Real Estate</span>
+          <span class="icp-chip">Insurance</span>
+          <span class="icp-chip">Fintech</span>
+        </div>
+      </div>
+
+      <!-- Rule Out -->
+      <div class="icp-card">
+        <div class="icp-card-label">Rule Out</div>
+        <div class="icp-chips">
+          <span class="icp-chip icp-chip-red">Banks</span>
+          <span class="icp-chip icp-chip-red">Fintechs with overlapping services</span>
+          <span class="icp-chip icp-chip-red">AR / AP tools</span>
+          <span class="icp-chip icp-chip-red">ERPs</span>
+          <span class="icp-chip icp-chip-red">Accounting tools</span>
+        </div>
+      </div>
+
+      <!-- Buying Triggers — placeholder -->
+      <div class="icp-card icp-card-placeholder">
+        <div class="icp-card-label">Buying Triggers</div>
+        <div class="icp-placeholder-text">Coming soon — what causes them to start looking.</div>
+      </div>
+
+      <!-- Disqualifiers — placeholder -->
+      <div class="icp-card icp-card-placeholder">
+        <div class="icp-card-label">Disqualifiers</div>
+        <div class="icp-placeholder-text">Coming soon — who to walk away from fast.</div>
+      </div>
+
+      <!-- Geography — placeholder -->
+      <div class="icp-card icp-card-placeholder">
+        <div class="icp-card-label">Geography</div>
+        <div class="icp-placeholder-text">Coming soon — target regions and markets.</div>
+      </div>
+
     </div>
   </div>
 
