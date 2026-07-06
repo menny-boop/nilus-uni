@@ -469,6 +469,22 @@
   /* Sales Process page */
   #sp-tabs { flex-wrap: wrap; }
   #mp-tabs { flex-wrap: wrap; }
+  #ob-tabs { flex-wrap: wrap; }
+
+  /* Onboarding Checklist */
+  .ob-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 28px 32px; box-shadow: var(--card-shadow); }
+  .ob-progress-bar-wrap { background: var(--card-border); border-radius: 99px; height: 6px; margin-bottom: 24px; overflow: hidden; }
+  .ob-progress-bar { height: 6px; border-radius: 99px; background: var(--purple); transition: width 0.3s; }
+  .ob-progress-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .ob-list { display: flex; flex-direction: column; gap: 0; }
+  .ob-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--card-border); cursor: pointer; }
+  .ob-item:last-child { border-bottom: none; }
+  .ob-item:hover .ob-check { border-color: var(--purple); }
+  .ob-check { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--card-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all 0.15s; }
+  .ob-check.done { background: var(--purple); border-color: var(--purple); }
+  .ob-check.done::after { content: ''; width: 5px; height: 9px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+  .ob-text { font-size: 14px; color: var(--text); line-height: 1.5; }
+  .ob-text.done { color: var(--text-muted); text-decoration: line-through; }
 
   /* Meeting Playbooks table */
   .mp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; box-shadow: var(--card-shadow); overflow: hidden; }
@@ -1210,11 +1226,9 @@
 
   <!-- STUB PAGES: General -->
   <div id="page-onboarding" class="page">
-    <div class="page-header">
-      <h2>✅ Onboarding Checklist</h2>
-      <p>Week 1: Product Mastery · Week 2: Sales Application · Week 3: Pipeline Acceleration</p>
-    </div>
-    <div class="ramp-grid" id="ramp-grid"></div>
+    <div class="page-header"><h2>Onboarding Checklist</h2><p>Everything you need to get up to speed — track your progress across each area.</p></div>
+    <div class="fc-deck-tabs" id="ob-tabs"></div>
+    <div id="ob-content"></div>
   </div>
 
   <div id="page-company" class="page">
@@ -2049,7 +2063,7 @@ function showPage(pageId, navEl) {
   if (pageId === 'dashboard') updateDashboard();
   // onboarding is the default landing page
   if (pageId === 'flashcards') initFlashcards();
-  if (pageId === 'onboarding') renderRamp();
+  if (pageId === 'onboarding') renderOnboarding();
   if (pageId === 'myprogress') renderMyProgress();
   if (pageId === 'objections') renderObjections();
   if (pageId === 'resources') renderResources();
@@ -2555,6 +2569,85 @@ function mpSelectDay(d) {
   renderMyProgress();
 }
 
+// ===== ONBOARDING CHECKLIST =====
+const ONBOARDING_TABS = [
+  {
+    id: 'admin',
+    name: 'Admin',
+    items: []
+  },
+  {
+    id: 'industry',
+    name: 'Industry Knowledge',
+    items: []
+  },
+  {
+    id: 'product',
+    name: 'Product Knowledge',
+    items: []
+  },
+  {
+    id: 'bdr',
+    name: 'BDR',
+    items: []
+  },
+];
+
+let obActiveTab = 0;
+
+function renderOnboarding() {
+  const tabs = document.getElementById('ob-tabs');
+  const content = document.getElementById('ob-content');
+  if (!tabs || !content) return;
+  tabs.innerHTML = ONBOARDING_TABS.map((t, i) => `
+    <div class="fc-deck-tab${i === obActiveTab ? ' active' : ''}" onclick="showOBTab(${i})">${t.name}</div>
+  `).join('');
+  renderOBTab();
+}
+
+function showOBTab(idx) {
+  obActiveTab = idx;
+  document.querySelectorAll('#ob-tabs .fc-deck-tab').forEach((el, i) => el.classList.toggle('active', i === idx));
+  renderOBTab();
+}
+
+function renderOBTab() {
+  const t = ONBOARDING_TABS[obActiveTab];
+  const content = document.getElementById('ob-content');
+  const saved = JSON.parse(localStorage.getItem('ob_' + t.id) || '{}');
+
+  if (!t.items.length) {
+    content.innerHTML = `<div class="ob-card" style="text-align:center;padding:48px"><div style="font-size:32px;margin-bottom:12px">🚧</div><div style="font-weight:600;margin-bottom:6px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Items for this section are being built out.</div></div>`;
+    return;
+  }
+
+  const doneCount = t.items.filter((_, i) => saved[i]).length;
+  const pct = Math.round((doneCount / t.items.length) * 100);
+
+  content.innerHTML = `
+    <div class="ob-card">
+      <div class="ob-progress-label">${doneCount} of ${t.items.length} completed</div>
+      <div class="ob-progress-bar-wrap"><div class="ob-progress-bar" style="width:${pct}%"></div></div>
+      <div class="ob-list">
+        ${t.items.map((item, i) => `
+          <div class="ob-item" onclick="toggleOBItem('${t.id}', ${i})">
+            <div class="ob-check${saved[i] ? ' done' : ''}"></div>
+            <div class="ob-text${saved[i] ? ' done' : ''}">${item}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function toggleOBItem(tabId, idx) {
+  const key = 'ob_' + tabId;
+  const saved = JSON.parse(localStorage.getItem(key) || '{}');
+  saved[idx] = !saved[idx];
+  localStorage.setItem(key, JSON.stringify(saved));
+  renderOBTab();
+}
+
 // ===== SALES PROCESS =====
 const SALES_PROCESS = [
   {
@@ -2869,7 +2962,7 @@ const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.sl
 if (initPage !== 'onboarding') {
   showPage(initPage);
 } else {
-  renderRamp();
+  renderOnboarding();
 }
 applyNavGroupState();
 updateDueBadge();
