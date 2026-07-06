@@ -1315,6 +1315,11 @@
   </div>
 
   <!-- STUB PAGES: Industry Knowledge -->
+  <div id="page-ind-personas" class="page">
+    <div class="page-header"><h2>Personas</h2><p>The buyers, champions, and decision-makers we sell to.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
   <div id="page-ind-customerlist" class="page">
     <div class="page-header"><h2>Customer List</h2><p>Our existing customers and key accounts.</p></div>
     <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
@@ -2658,6 +2663,7 @@ const ONBOARDING_TABS = [
     name: 'Industry Knowledge',
     items: [
       { name: 'ICP',                          page: 'icppersonas' },
+      { name: 'Personas',                     page: 'ind-personas' },
       { name: 'Customer List',                page: 'ind-customerlist' },
       { name: 'Competitors',                  page: 'competitive' },
       { name: 'Related Industries',           page: 'ind-relatedindustries' },
@@ -3044,7 +3050,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude','ind-customerlist','ind-relatedindustries','ind-erps'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude','ind-personas','ind-customerlist','ind-relatedindustries','ind-erps'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
