@@ -1278,81 +1278,79 @@
 
   <div id="page-icppersonas" class="page">
     <div class="page-header"><h2>ICP & Personas</h2><p>Who we sell to — use this to qualify fast and walk away faster.</p></div>
-    <div class="icp-grid">
+    <div class="fc-deck-tabs" id="icp-tabs">
+      <div class="fc-deck-tab active" onclick="showICPTab(0)">ICP</div>
+      <div class="fc-deck-tab" onclick="showICPTab(1)">Personas</div>
+      <div class="fc-deck-tab" onclick="showICPTab(2)">Buying Triggers</div>
+    </div>
 
-      <!-- Company Profile -->
-      <div class="icp-card">
-        <div class="icp-card-label">Company Profile</div>
-        <div class="icp-stat-row">
-          <div class="icp-stat">
-            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-            <div>
-              <div class="icp-stat-label">Revenue Range</div>
-              <div class="icp-stat-value">$200M – $5B</div>
+    <!-- ICP TAB -->
+    <div id="icp-tab-0" class="icp-tab-content">
+      <div class="icp-grid">
+        <div class="icp-card">
+          <div class="icp-card-label">Company Profile</div>
+          <div class="icp-stat-row">
+            <div class="icp-stat">
+              <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div>
+                <div class="icp-stat-label">Revenue Range</div>
+                <div class="icp-stat-value">$200M – $5B</div>
+              </div>
             </div>
-          </div>
-          <div class="icp-stat">
-            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <div>
-              <div class="icp-stat-label">Headcount</div>
-              <div class="icp-stat-value">500+ employees</div>
+            <div class="icp-stat">
+              <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div>
+                <div class="icp-stat-label">Headcount</div>
+                <div class="icp-stat-value">500+ employees</div>
+              </div>
             </div>
-          </div>
-          <div class="icp-stat">
-            <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-            <div>
-              <div class="icp-stat-label">Banking Structure</div>
-              <div class="icp-stat-value">Global · Multi-currency</div>
-              <div class="icp-stat-sub">Operates beyond USD</div>
+            <div class="icp-stat">
+              <div class="icp-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+              <div>
+                <div class="icp-stat-label">Banking Structure</div>
+                <div class="icp-stat-value">Global · Multi-currency</div>
+                <div class="icp-stat-sub">Operates beyond USD</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Target Industries -->
-      <div class="icp-card">
-        <div class="icp-card-label">Target Industries</div>
-        <div class="icp-chips">
-          <span class="icp-chip">SaaS</span>
-          <span class="icp-chip">Manufacturing</span>
-          <span class="icp-chip">Energy</span>
-          <span class="icp-chip">Retail</span>
-          <span class="icp-chip">Real Estate</span>
-          <span class="icp-chip">Insurance</span>
-          <span class="icp-chip">Fintech</span>
+        <div class="icp-card">
+          <div class="icp-card-label">Target Industries</div>
+          <div class="icp-chips">
+            <span class="icp-chip">SaaS</span>
+            <span class="icp-chip">Manufacturing</span>
+            <span class="icp-chip">Energy</span>
+            <span class="icp-chip">Retail</span>
+            <span class="icp-chip">Real Estate</span>
+            <span class="icp-chip">Insurance</span>
+            <span class="icp-chip">Fintech</span>
+          </div>
+        </div>
+        <div class="icp-card">
+          <div class="icp-card-label">Rule Out</div>
+          <div class="icp-chips">
+            <span class="icp-chip icp-chip-red">Banks</span>
+            <span class="icp-chip icp-chip-red">Fintechs with overlapping services</span>
+            <span class="icp-chip icp-chip-red">AR / AP tools</span>
+            <span class="icp-chip icp-chip-red">ERPs</span>
+            <span class="icp-chip icp-chip-red">Accounting tools</span>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Rule Out -->
-      <div class="icp-card">
-        <div class="icp-card-label">Rule Out</div>
-        <div class="icp-chips">
-          <span class="icp-chip icp-chip-red">Banks</span>
-          <span class="icp-chip icp-chip-red">Fintechs with overlapping services</span>
-          <span class="icp-chip icp-chip-red">AR / AP tools</span>
-          <span class="icp-chip icp-chip-red">ERPs</span>
-          <span class="icp-chip icp-chip-red">Accounting tools</span>
-        </div>
-      </div>
-
-      <!-- Buying Triggers — placeholder -->
+    <!-- PERSONAS TAB -->
+    <div id="icp-tab-1" class="icp-tab-content" style="display:none">
       <div class="icp-card icp-card-placeholder">
-        <div class="icp-card-label">Buying Triggers</div>
-        <div class="icp-placeholder-text">Coming soon — what causes them to start looking.</div>
+        <div class="icp-placeholder-text">Coming soon — buyer profiles: CFO, Treasurer, VP Finance, and more.</div>
       </div>
+    </div>
 
-      <!-- Disqualifiers — placeholder -->
+    <!-- BUYING TRIGGERS TAB -->
+    <div id="icp-tab-2" class="icp-tab-content" style="display:none">
       <div class="icp-card icp-card-placeholder">
-        <div class="icp-card-label">Disqualifiers</div>
-        <div class="icp-placeholder-text">Coming soon — who to walk away from fast.</div>
+        <div class="icp-placeholder-text">Coming soon — what causes prospects to start looking.</div>
       </div>
-
-      <!-- Geography — placeholder -->
-      <div class="icp-card icp-card-placeholder">
-        <div class="icp-card-label">Geography</div>
-        <div class="icp-placeholder-text">Coming soon — target regions and markets.</div>
-      </div>
-
     </div>
   </div>
 
@@ -2745,6 +2743,12 @@ function renderMyProgress() {
 function mpSelectDay(d) {
   mpSelectedDay = d;
   renderMyProgress();
+}
+
+// ===== ICP TABS =====
+function showICPTab(idx) {
+  document.querySelectorAll('#icp-tabs .fc-deck-tab').forEach((el, i) => el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.icp-tab-content').forEach((el, i) => el.style.display = i === idx ? '' : 'none');
 }
 
 // ===== CUSTOMER LIST =====
