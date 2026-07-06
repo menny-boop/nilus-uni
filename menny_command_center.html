@@ -485,6 +485,8 @@
   .ob-check.done::after { content: ''; width: 5px; height: 9px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
   .ob-text { font-size: 14px; color: var(--text); line-height: 1.5; }
   .ob-text.done { color: var(--text-muted); text-decoration: line-through; }
+  .ob-link { color: var(--purple); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .ob-link:hover { opacity: 0.8; }
 
   /* Meeting Playbooks table */
   .mp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; box-shadow: var(--card-shadow); overflow: hidden; }
@@ -1283,6 +1285,12 @@
       <div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div>
       <div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div>
     </div>
+  </div>
+
+  <!-- STUB PAGES: System Enablement -->
+  <div id="page-sys-commandcenter" class="page">
+    <div class="page-header"><h2>Command Center</h2><p>Guides and resources to get up and running on the Nilus Command Center.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
   </div>
 
   <!-- STUB PAGES: Account Executive -->
@@ -2586,7 +2594,9 @@ const ONBOARDING_TABS = [
     id: 'systems',
     name: 'System Enablement',
     description: 'Below you can find guides and videos on how to get up and running on each of these systems.',
-    items: []
+    items: [
+      { name: 'Command Center', page: 'sys-commandcenter' },
+    ]
   },
   {
     id: 'industry',
@@ -2643,12 +2653,14 @@ function renderOBTab() {
       <div class="ob-progress-label">${doneCount} of ${t.items.length} completed</div>
       <div class="ob-progress-bar-wrap"><div class="ob-progress-bar" style="width:${pct}%"></div></div>
       <div class="ob-list">
-        ${t.items.map((item, i) => `
-          <div class="ob-item" onclick="toggleOBItem('${t.id}', ${i})">
-            <div class="ob-check${saved[i] ? ' done' : ''}"></div>
-            <div class="ob-text${saved[i] ? ' done' : ''}">${item}</div>
-          </div>
-        `).join('')}
+        ${t.items.map((item, i) => {
+          const name = typeof item === 'object' ? item.name : item;
+          const page = typeof item === 'object' ? item.page : null;
+          const textEl = page
+            ? `<div class="ob-text ob-link${saved[i] ? ' done' : ''}" onclick="event.stopPropagation();showPage('${page}')">${name}</div>`
+            : `<div class="ob-text${saved[i] ? ' done' : ''}">${name}</div>`;
+          return `<div class="ob-item" onclick="toggleOBItem('${t.id}', ${i})"><div class="ob-check${saved[i] ? ' done' : ''}"></div>${textEl}</div>`;
+        }).join('')}
       </div>
     </div>
   `;
@@ -2971,7 +2983,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
