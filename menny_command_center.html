@@ -503,6 +503,12 @@
   .icp-chip { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; background: rgba(124,58,237,0.1); color: var(--purple); border: 1px solid rgba(124,58,237,0.2); }
   .icp-chip-red { background: rgba(239,68,68,0.08); color: #ef4444; border-color: rgba(239,68,68,0.2); }
   .icp-placeholder-text { font-size: 13px; color: var(--text-muted); font-style: italic; }
+  .persona-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .persona-primary   { background: rgba(16,185,129,0.1);  color: #059669; }
+  .persona-champion  { background: rgba(124,58,237,0.1);  color: var(--purple); }
+  .persona-influencer{ background: rgba(59,130,246,0.1);  color: #3b82f6; }
+  .persona-avoid     { background: rgba(239,68,68,0.1);   color: #ef4444; }
+  .persona-economic  { background: rgba(245,158,11,0.1);  color: #d97706; }
 
   /* Customer List table */
   .cl-search-wrap { margin-bottom: 16px; }
@@ -1341,8 +1347,73 @@
 
     <!-- PERSONAS TAB -->
     <div id="icp-tab-1" class="icp-tab-content" style="display:none">
-      <div class="icp-card icp-card-placeholder">
-        <div class="icp-placeholder-text">Coming soon — buyer profiles: CFO, Treasurer, VP Finance, and more.</div>
+      <div style="overflow-x:auto;border-radius:14px;border:1px solid var(--card-border);box-shadow:var(--card-shadow)">
+        <table class="cl-table">
+          <thead>
+            <tr>
+              <th>Persona</th>
+              <th>Role</th>
+              <th>Deal Influence</th>
+              <th>Also Known As</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Global Director of Treasury</td>
+              <td>Oversees multiple treasury teams globally, responsible for all treasury operations. Typically has Treasury Managers reporting to them for individual regions. Reports directly to VP Finance or CFO.</td>
+              <td><span class="persona-badge persona-primary">Primary Target</span></td>
+              <td>Head of Treasury · VP Treasury</td>
+            </tr>
+            <tr>
+              <td>Treasury Director</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-primary">Primary Target</span></td>
+              <td>Director of Treasury</td>
+            </tr>
+            <tr>
+              <td>Director of Treasury Operations</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-primary">Primary Target</span></td>
+              <td>VP Treasury Operations · Global Director of Treasury Operations</td>
+            </tr>
+            <tr>
+              <td>Treasury Manager</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-champion">Champion / Influencer</span></td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+            </tr>
+            <tr>
+              <td>Mid-Level Treasury Operator</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-influencer">Influencer</span></td>
+              <td>Treasury Operations Treasurer · Senior Treasurer · Treasury Lead</td>
+            </tr>
+            <tr>
+              <td>Treasury Analyst</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-influencer">Influencer / User</span></td>
+              <td>Treasury Analyst 2</td>
+            </tr>
+            <tr>
+              <td>Corporate Controller</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="persona-badge persona-avoid">Avoid — not relevant</span></td>
+              <td>SVP Corporate Controller · VP Corporate Controller · Assistant Controller</td>
+            </tr>
+            <tr>
+              <td>CFO</td>
+              <td>Economic buyer. The Global Director of Treasury reports directly to this role.</td>
+              <td><span class="persona-badge persona-economic">Economic Buyer</span></td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+            </tr>
+            <tr>
+              <td>VP Finance</td>
+              <td>Economic buyer. The Global Director of Treasury reports directly to this role.</td>
+              <td><span class="persona-badge persona-economic">Economic Buyer</span></td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
