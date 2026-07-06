@@ -1314,6 +1314,11 @@
     </div>
   </div>
 
+  <div id="page-sys-claude" class="page">
+    <div class="page-header"><h2>Claude</h2><p>Video guides to get you up and running on Claude.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
+  </div>
+
   <div id="page-sys-loom" class="page">
     <div class="page-header"><h2>Loom</h2><p>Video guides to get you up and running on Loom.</p></div>
     <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
@@ -2629,6 +2634,7 @@ const ONBOARDING_TABS = [
       { name: 'Command Center', page: 'sys-commandcenter' },
       { name: 'Gong', page: 'sys-gong' },
       { name: 'Loom', page: 'sys-loom' },
+      { name: 'Claude', page: 'sys-claude' },
     ]
   },
   {
@@ -3016,7 +3022,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
