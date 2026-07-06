@@ -1314,6 +1314,22 @@
     </div>
   </div>
 
+  <!-- STUB PAGES: Industry Knowledge -->
+  <div id="page-ind-customerlist" class="page">
+    <div class="page-header"><h2>Customer List</h2><p>Our existing customers and key accounts.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-ind-relatedindustries" class="page">
+    <div class="page-header"><h2>Related Industries</h2><p>Adjacent markets and verticals relevant to Nilus.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
+  <div id="page-ind-erps" class="page">
+    <div class="page-header"><h2>ERPs & Indirect Competitors</h2><p>ERP platforms and indirect competitors in the treasury space.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">This section is being built out.</div></div>
+  </div>
+
   <div id="page-sys-claude" class="page">
     <div class="page-header"><h2>Claude</h2><p>Video guides to get you up and running on Claude.</p></div>
     <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
@@ -2640,7 +2656,13 @@ const ONBOARDING_TABS = [
   {
     id: 'industry',
     name: 'Industry Knowledge',
-    items: []
+    items: [
+      { name: 'ICP',                          page: 'icppersonas' },
+      { name: 'Customer List',                page: 'ind-customerlist' },
+      { name: 'Competitors',                  page: 'competitive' },
+      { name: 'Related Industries',           page: 'ind-relatedindustries' },
+      { name: 'ERPs & Indirect Competitors',  page: 'ind-erps' },
+    ]
   },
   {
     id: 'product',
@@ -3022,7 +3044,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong','sys-loom','sys-claude','ind-customerlist','ind-relatedindustries','ind-erps'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
