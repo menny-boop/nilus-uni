@@ -1314,6 +1314,11 @@
     </div>
   </div>
 
+  <div id="page-sys-gong" class="page">
+    <div class="page-header"><h2>Gong</h2><p>Video guides to get you up and running on Gong.</p></div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:48px;text-align:center;box-shadow:var(--card-shadow)"><div style="font-size:36px;margin-bottom:16px">🚧</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">Coming soon</div><div style="font-size:13px;color:var(--text-muted)">Guides and videos are being added.</div></div>
+  </div>
+
   <!-- STUB PAGES: Account Executive -->
   <div id="page-salesprocess" class="page">
     <div class="page-header"><h2>Sales Process & Deal Stages</h2><p>From first touch to closed won — every stage, every motion.</p></div>
@@ -2617,6 +2622,7 @@ const ONBOARDING_TABS = [
     description: 'Below you can find guides and videos on how to get up and running on each of these systems.',
     items: [
       { name: 'Command Center', page: 'sys-commandcenter' },
+      { name: 'Gong', page: 'sys-gong' },
     ]
   },
   {
@@ -3004,7 +3010,7 @@ function applyNavGroupState() {
 }
 
 // ===== INIT =====
-const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter'];
+const VALID_PAGES = ['dashboard','flashcards','competitive','objections','myprogress','resources','onboarding','company','icppersonas','productmodules','casestudies','messaging','orgchart','salesprocess','meetingplaybooks','discoverybank','objectionbank','pricingpackaging','negotiation','proposalcontract','mutualactionplan','forecasting','sys-commandcenter','sys-gong'];
 const initPage = VALID_PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'onboarding';
 if (initPage !== 'onboarding') {
   showPage(initPage);
