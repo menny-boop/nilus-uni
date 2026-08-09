@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nilus University — Onboarding Hub</title>
+<style>
+:root {
+  --sb-bg:         #1c1b28;
+  --sb-border:     rgba(255,255,255,0.06);
+  --sb-text:       #8a8a9e;
+  --sb-text-on:    #ffffff;
+  --sb-section:    #44445a;
+  --sb-active-bg:  rgba(124,58,237,0.18);
+  --sb-w:          212px;
+
+  --main-bg:       #eae8e3;
+  --card:          #ffffff;
+  --border:        #dedad4;
+
+  --purple:        #6920d4;
+  --purple-mid:    #7c3aed;
+  --purple-lt:     #8b5cf6;
+  --purple-tint:   rgba(105,32,212,0.07);
+  --purple-ring:   rgba(105,32,212,0.2);
+
+  --text:          #111117;
+  --text-muted:    #6b6b7c;
+  --text-dim:      #9ca3af;
+  --green:         #059669;
+  --green-tint:    rgba(5,150,105,0.1);
+
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --r: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font); display: flex; background: var(--sb-bg); }
+
+/* ─── SIDEBAR ──────────────────────────────────────────── */
+.sidebar {
+  width: var(--sb-w);
+  min-width: var(--sb-w);
+  background: var(--sb-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  transition: width 0.22s ease, min-width 0.22s ease;
+  border-right: 1px solid var(--sb-border);
+}
+.sidebar.slim { width: 0; min-width: 0; }
+
+.sb-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 14px 11px;
+  flex-shrink: 0;
+}
+.sb-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+}
+.sb-logo-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+.sb-collapse {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sb-text);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.sb-collapse:hover { background: rgba(255,255,255,0.1); }
+
+.sb-room {
+  padding: 0 14px 13px;
+  border-bottom: 1px solid var(--sb-border);
+  flex-shrink: 0;
+}
+.sb-room-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+.sb-room-sub {
+  font-size: 11px;
+  color: var(--sb-text);
+  margin-top: 1px;
+}
+
+.sb-prog {
+  padding: 11px 14px;
+  flex-shrink: 0;
+}
+.sb-prog-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.sb-prog-label { font-size: 11px; color: var(--sb-text); }
+.sb-prog-pct   { font-size: 11px; font-weight: 600; color: #fff; }
+.sb-prog-track {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.sb-prog-fill {
+  height: 100%;
+  background: var(--purple-lt);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.sb-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0 10px;
+}
+.sb-nav::-webkit-scrollbar { width: 3px; }
+.sb-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+.sb-sec-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sb-section);
+  padding: 10px 14px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.12s;
+  border-radius: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.sb-item:hover { background: rgba(255,255,255,0.04); }
+.sb-item.active { background: var(--sb-active-bg); }
+
+.sb-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sb-dot.done    { background: var(--purple-mid); }
+.sb-dot.current { background: var(--purple-mid); box-shadow: 0 0 0 2px var(--sb-bg), 0 0 0 4px var(--purple-mid); }
+.sb-dot.next    { border: 1.5px solid rgba(255,255,255,0.14); }
+
+.sb-dot-check {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+.sb-item-text {
+  font-size: 12px;
+  color: var(--sb-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sb-item.active .sb-item-text { color: var(--sb-text-on); font-weight: 500; }
+
+.sb-foot {
+  padding: 11px 14px;
+  border-top: 1px solid var(--sb-border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.sb-foot-text { font-size: 11px; color: var(--sb-section); }
+
+/* ─── EXPAND HANDLE (when sidebar is slim) ──────────────── */
+.expand-handle {
+  position: fixed;
+  top: 14px;
+  left: 8px;
+  z-index: 100;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--sb-bg);
+  border: 1px solid var(--sb-border);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--sb-text);
+}
+.sidebar.slim ~ .expand-handle { display: flex; }
+
+/* ─── MAIN ─────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  background: var(--main-bg);
+  height: 100vh;
+  overflow-y: auto;
+}
+.page {
+  max-width: 820px;
+  padding: 48px 52px 72px;
+}
+
+/* eyebrow */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple-mid);
+  margin-bottom: 6px;
+}
+
+/* heading */
+.heading {
+  font-size: 31px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.7px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+/* pill nav */
+.pill-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 9px;
+}
+.pill-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+.pill:hover { border-color: var(--purple-lt); box-shadow: 0 2px 8px var(--purple-ring); }
+.pill.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+.pill svg { opacity: 0.5; }
+
+.page-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* section label */
+.sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+/* ─── TIMELINE ─────────────────────────────────────────── */
+.timeline-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px 28px 22px;
+  margin-bottom: 24px;
+}
+.tl-track {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+.tl-line-bg {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background: #e2dfd9;
+  border-radius: 1px;
+}
+.tl-line-fill {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  height: 2px;
+  background: var(--purple-mid);
+  border-radius: 1px;
+  transition: width 0.35s ease;
+}
+.tl-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+.tl-node {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: transform 0.15s;
+}
+.tl-node:hover { transform: scale(1.08); }
+.tl-node.done    { background: var(--purple-mid); }
+.tl-node.current {
+  background: var(--main-bg);
+  border: 3px solid var(--purple-mid);
+  box-shadow: 0 0 0 3px var(--purple-ring);
+}
+.tl-node.next    { background: #d4d0c8; }
+.tl-lbl {
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 76px;
+}
+.tl-lbl.done    { color: var(--text-muted); font-weight: 400; }
+.tl-lbl.current { color: var(--purple-mid); font-weight: 700; }
+.tl-lbl.next    { color: var(--text-dim);   font-weight: 400; }
+
+/* ─── TASKS CARD ───────────────────────────────────────── */
+.tasks-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.tasks-hd {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tasks-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.tasks-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: rgba(124,58,237,0.08);
+  color: var(--purple-mid);
+}
+.tasks-badge.done-all {
+  background: var(--green-tint);
+  color: var(--green);
+}
+
+.task-list { list-style: none; }
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 11px 20px;
+  border-bottom: 1px solid #f2efea;
+  transition: background 0.1s;
+}
+.task-item:last-child { border-bottom: none; }
+.task-item:hover { background: #faf9f7; }
+.task-cb {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1.5px solid #c4c0b8;
+  flex-shrink: 0;
+  margin-top: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.1s, border-color 0.1s;
+}
+.task-cb:checked { background: var(--green); border-color: var(--green); }
+.task-cb:checked::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0px;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+.task-cb:focus-visible { outline: 2px solid var(--purple-mid); outline-offset: 2px; }
+.task-lbl { font-size: 13px; color: #374151; line-height: 1.5; }
+.task-item:has(.task-cb:checked) .task-lbl {
+  color: #9ca3af;
+  text-decoration: line-through;
+  text-decoration-color: #d1d5db;
+}
+
+/* ─── ACTION BOX ────────────────────────────────────────── */
+.action-box {
+  background: rgba(105,32,212,0.04);
+  border: 1px solid rgba(105,32,212,0.12);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+/* ─── RESOURCES ─────────────────────────────────────────── */
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+}
+.res-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 15px;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.res-card:hover {
+  border-color: var(--purple-lt);
+  box-shadow: 0 2px 10px var(--purple-ring);
+}
+.res-icon  { font-size: 17px; margin-bottom: 7px; }
+.res-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.res-desc  { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+@media (max-width: 600px) {
+  .page { padding: 28px 20px 56px; }
+  .res-grid { grid-template-columns: 1fr 1fr; }
+  .tl-lbl { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar" aria-label="Navigation">
+  <div class="sb-top">
+    <a href="#" class="sb-logo" aria-label="Nilus home">
+      <!-- Nilus asterisk/snowflake -->
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <line x1="10" y1="1" x2="10" y2="19" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="1"  y1="10" x2="19" y2="10" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="3"  y1="3"  x2="17" y2="17" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="17" y1="3"  x2="3"  y2="17" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="10" y1="1"  x2="7"  y2="4"  stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="10" y1="1"  x2="13" y2="4"  stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="10" y1="19" x2="7"  y2="16" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="10" y1="19" x2="13" y2="16" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <span class="sb-logo-text">nilus</span>
+    </a>
+    <button class="sb-collapse" id="collapse-btn" onclick="toggleSidebar()" aria-label="Collapse sidebar">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6.5 2L3.5 5l3 3"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sb-room">
+    <div class="sb-room-name">New Hire</div>
+    <div class="sb-room-sub">Onboarding Hub</div>
+  </div>
+
+  <div class="sb-prog">
+    <div class="sb-prog-row">
+      <span class="sb-prog-label" id="sb-step">Day 1 of 14</span>
+      <span class="sb-prog-pct" id="sb-pct">0%</span>
+    </div>
+    <div class="sb-prog-track">
+      <div class="sb-prog-fill" id="sb-fill"></div>
+    </div>
+  </div>
+
+  <div class="sb-nav" id="sb-nav"></div>
+
+  <div class="sb-foot">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#44445a" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="4.5"/>
+      <path d="M6 3.5v2.5l1.5.8"/>
+    </svg>
+    <span class="sb-foot-text">Powered by Nilus</span>
+  </div>
+</nav>
+
+<!-- EXPAND HANDLE -->
+<button class="expand-handle" id="expand-handle" onclick="toggleSidebar()" aria-label="Expand sidebar">
+  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3.5 2l3 3-3 3"/>
+  </svg>
+</button>
+
+<!-- MAIN -->
+<main class="main" id="main">
+  <div class="page" id="page"></div>
+</main>
+
+<script>
+/* ── DATA ──────────────────────────────────────────────── */
+const WEEKS = [
+  { id: 'w1', label: 'WEEK 1 · PRODUCT',    title: 'Product Mastery',        days: [1,2,3,4,5]    },
+  { id: 'w2', label: 'WEEK 2 · SALES',      title: 'Sales Application',      days: [6,7,8,9,10]   },
+  { id: 'w3', label: 'WEEK 3 · PIPELINE',   title: 'Pipeline Acceleration',  days: [11,12,13,14]  },
+];
+
+const DAYS = {
+  1:  { theme: 'Product Foundation',                tasks: ['Explore Nilus Workspace — understand navigation and layout','Study Cash Positions module: Balances, Positions, Trends','Read all Nilus product one-pagers / factsheets','Watch 1 full platform demo recording','Rate yourself on Growth Plan: Nilus Workspace + Cash Positions','Complete Nilus Product flashcard deck (first pass)'] },
+  2:  { theme: 'Cash & Bank Deep Dive',             tasks: ['Master Cash Positions module: Transactions + Cashflow views','Study Bank Management: Signatories, Accounts, Audit Log','Complete Treasury Fundamentals flashcard topic (Ch1 + Ch7)','Understand: why do companies have multiple banks?','Write 3 discovery questions about cash visibility pain'] },
+  3:  { theme: 'Reconciliation & Working Capital',  tasks: ['Master ERP Recon module: Bank Feed + Cash Application','Complete Working Capital flashcard topic (Ch10 + Ch11)','Master CCC formula: CCC = DIO + DSO − DPO','Complete Disbursements & Collections topic (Ch12)','Map lockboxes, ZBAs, concentration → Nilus Recon module'] },
+  4:  { theme: 'Forecasting Deep Dive',             tasks: ['Master Cash Forecast module: Forecast, Expected Flows, Forecast Submission','Complete Cash Flow Forecasting flashcard topic (Ch14)','Understand the 13-week rolling forecast inside out','Shadow 1 Nilus product demo (forecasting module)','Practice explaining the forecast module in 90 seconds'] },
+  5:  { theme: 'Advanced Modules + AI',             tasks: ['Master Nilus AI: Schedule Tasks, Report Builder, Liquidity module','Explore Agent Library + Agent Builder + Workflow Manager','Study Debt module (Dashboard + Facility) and Investments','Master Payments module: Dashboard, Payments, Approval, Beneficiaries','Complete TMS Technology flashcard (Ch15) — Nilus vs TMS positioning','Run through all product flashcards — Week 1 product review'] },
+  6:  { theme: 'ICP, Personas & Champion Building', tasks: ['Research 5 target accounts — identify treasury pain signals','Practice Champion Building framework — who sells for you internally?','Study Political Awareness + Internal Alignment in enterprise accounts','Write CFO + Treasurer persona pain points from memory','Draft 3 cold outreach messages (1 CFO, 1 Treasurer, 1 Controller)','Rate yourself on Growth Plan: Stakeholder Management skills'] },
+  7:  { theme: 'MEDDICC Discovery & Demo',          tasks: ['Run mock MEDDICC discovery call — hit all 6 qualification criteria','Practice Basic Demo: full product walkthrough without notes','Focus on Controlling Conversations — active listening + redirecting','Record yourself doing a 5-minute Nilus pitch — watch it back','Practice 5 discovery openers cold','Complete discovery framework flashcard topic'] },
+  8:  { theme: 'Closing, Objections & Business Case', tasks: ['Build a real Business Case for a target account (ROI model)','Practice every objection in the Objection Bank out loud','Work through: Pricing conversations + Negotiation Give/Get frameworks','Shadow a full sales cycle call with an AE','Practice Asking for the Business — trial close language','Research Kyriba, GTreasury, BlackLine positioning'] },
+  9:  { theme: 'Pipeline Ownership & Multi-threading', tasks: ['Book 3 discovery calls using research from Day 6','Practice Multi-threading — map all stakeholders in a deal','Build your Territory Plan: ICP criteria, target list, outreach cadence','Review Pipeline/Forecasting hygiene — is every deal CRM-current?','Practice Deal Prioritization — rank pipeline by probability + size','Practice Tailored Demo on a real account use case'] },
+  10: { theme: 'Ramp Graduation',                  tasks: ["Present 'state of my pipeline' to manager",'Demonstrate: tailored 10-minute demo for a specific prospect','Demonstrate: handle 5 late-stage objections including pricing cold','Demonstrate: Procurement navigation — legal, security, finance hurdles','Set 30-day pipeline target + executive presence goals with manager','Rate ALL items in Growth Plan — establish your baseline'] },
+  11: { theme: 'Live Deal Execution',              tasks: ['Run your first fully independent discovery call — no shadowing','Send a customised follow-up with Nilus value prop mapped to prospect pain','Identify the economic buyer in each active opportunity',"Practice the 'so what does that cost you today?' ROI question live",'Update all CRM deal stages with next steps and close dates','Debrief every call: what landed, what didn\'t, what you\'d change'] },
+  12: { theme: 'Forecasting & Pipeline Hygiene',   tasks: ['Audit every deal: is MEDDICC complete? Is the next step scheduled?','Build a personal forecast call cadence — weekly commit vs. best case','Practice explaining your pipeline to your manager in under 3 minutes','Identify 2 deals at risk — map the risk and a mitigation plan','Write a 1-page territory snapshot: ICP coverage, pipeline by stage, gaps','Study Treasury Forecasting flashcard topic (Ch14) — second full pass'] },
+  13: { theme: 'Advanced Competitive & Differentiation', tasks: ['Run a full battle-card drill for Kyriba, HighRadius, SAP from memory',"Practice: 'We're already evaluating Kyriba' — handle cold without notes",'Study Financial Risk Management flashcard topic (Ch16 + Ch17)','Draft a competitive displacement email for a Kyriba prospect','Map 3 real accounts where Nilus wins on speed-to-value over incumbents','Practice executive storytelling: open with the CFO\'s problem, not the product'] },
+  14: { theme: 'Graduation & 30-Day Plan',         tasks: ['Present full pipeline review: every deal, MEDDICC, next steps, forecast','Demonstrate: end-to-end Nilus demo tailored to a CFO at a specific company','Demonstrate: handle pricing, security, and legal objections back-to-back','Write your personal 30-day post-ramp plan: targets, focus areas, skill gaps','Complete all remaining treasury flashcard chapters — final review pass','Schedule bi-weekly 1:1 coaching sessions with your manager going forward'] },
+};
+
+const RESOURCES = [
+  { icon: '📖', title: 'Treasury Flashcards',   desc: 'Full AFP CTP deck — 60+ cards across all chapters' },
+  { icon: '🎯', title: 'Objection Bank',          desc: '8 objections with battle-tested responses' },
+  { icon: '🏦', title: 'Nilus Product Deck',      desc: 'All modules, discovery questions, positioning' },
+  { icon: '⚔️', title: 'Competitive Intel',       desc: 'Nilus vs TMS, ERP, spreadsheets, bank portals' },
+  { icon: '📊', title: 'Progress Dashboard',      desc: 'Mastery % per topic and deck' },
+  { icon: '🧠', title: 'Growth Plan',             desc: '62-item self-assessment across skills + modules' },
+];
+
+/* ── STATE ──────────────────────────────────────────────── */
+const KEY = 'nilus_uni_v2';
+let state = { currentDay: 1, tasks: {} };
+
+function load() {
+  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch {}
+  state.currentDay = state.currentDay || 1;
+  state.tasks = state.tasks || {};
+}
+function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+/* ── PROGRESS HELPERS ───────────────────────────────────── */
+function allTasks() {
+  return Object.values(DAYS).flatMap(d => d.tasks.map((_, i) => true));
+}
+function totalTasks()  { return Object.values(DAYS).reduce((s, d) => s + d.tasks.length, 0); }
+function doneTasks()   { return Object.values(state.tasks).filter(Boolean).length; }
+function dayDone(d)    { return DAYS[d].tasks.every((_, i) => state.tasks[`${d}-${i}`]); }
+function dayDoneCount(d) { return DAYS[d].tasks.filter((_, i) => state.tasks[`${d}-${i}`]).length; }
+function weekOf(d)     { return WEEKS.find(w => w.days.includes(d)); }
+
+/* ── SIDEBAR ────────────────────────────────────────────── */
+function renderSidebar() {
+  const nav = document.getElementById('sb-nav');
+  const total = totalTasks(), done = doneTasks();
+  const pct = total ? Math.round(done / total * 100) : 0;
+
+  document.getElementById('sb-step').textContent = `Day ${state.currentDay} of 14`;
+  document.getElementById('sb-pct').textContent  = `${pct}%`;
+  document.getElementById('sb-fill').style.width = `${pct}%`;
+
+  nav.innerHTML = WEEKS.map(w => `
+    <div class="sb-sec-label">${w.label}</div>
+    ${w.days.map(d => {
+      const done = dayDone(d);
+      const cur  = d === state.currentDay;
+      const st   = done ? 'done' : cur ? 'current' : 'next';
+      return `
+        <div class="sb-item${cur ? ' active' : ''}" onclick="goDay(${d})" role="button" tabindex="0" aria-label="Day ${d}: ${DAYS[d].theme}${done ? ', complete' : ''}">
+          <div class="sb-dot ${st}">${done ? '<div class="sb-dot-check"></div>' : ''}</div>
+          <span class="sb-item-text">Day ${d}: ${DAYS[d].theme}</span>
+        </div>`;
+    }).join('')}
+  `).join('');
+
+  // keyboard nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
+  });
+}
+
+/* ── PAGE ───────────────────────────────────────────────── */
+function renderPage() {
+  const d    = state.currentDay;
+  const day  = DAYS[d];
+  const week = weekOf(d);
+  const done = dayDoneCount(d);
+  const total = day.tasks.length;
+  const allDone = done === total;
+  const isOverview = d === 1 && done === 0 && !state._visitedOnce;
+
+  // week status for pills
+  const weekPills = WEEKS.map(w => {
+    const wDone = w.days.filter(dayDone).length;
+    const active = w === week;
+    return `<button class="pill${active ? ' active' : ''}" onclick="goDay(${w.days[0]})" aria-pressed="${active}">
+      ${w.title}
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5l2.5 2.5L4 7.5"/></svg>
+    </button>`;
+  }).join('');
+
+  // timeline
+  const tlItems = week.days.map(nd => {
+    const st = dayDone(nd) ? 'done' : nd === d ? 'current' : 'next';
+    return `
+      <div class="tl-item" onclick="goDay(${nd})" aria-label="Day ${nd}: ${DAYS[nd].theme}" role="button" tabindex="0">
+        <div class="tl-node ${st}" aria-hidden="true"></div>
+        <div class="tl-lbl ${st}">Day ${nd}<br>${DAYS[nd].theme}</div>
+      </div>`;
+  }).join('');
+
+  // timeline fill width
+  const daysInWeek = week.days;
+  const curIdx = daysInWeek.indexOf(d);
+  const doneCount = daysInWeek.filter(dayDone).length;
+  // fill goes to current position
+  const fillFrac = daysInWeek.length > 1
+    ? (doneCount / (daysInWeek.length - 1))
+    : (dayDone(d) ? 1 : 0);
+
+  // tasks
+  const taskItems = day.tasks.map((t, i) => `
+    <li class="task-item">
+      <input type="checkbox" class="task-cb" id="cb-${d}-${i}" ${state.tasks[`${d}-${i}`] ? 'checked' : ''}
+        onchange="toggleTask(${d}, ${i}, this.checked)" aria-label="${t}">
+      <label class="task-lbl" for="cb-${d}-${i}">${t}</label>
+    </li>`).join('');
+
+  // resources (always show)
+  const resCards = RESOURCES.map(r => `
+    <a href="./menny_command_center.html" target="_blank" rel="noopener" class="res-card">
+      <div class="res-icon">${r.icon}</div>
+      <div class="res-title">${r.title}</div>
+      <div class="res-desc">${r.desc}</div>
+    </a>`).join('');
+
+  document.getElementById('page').innerHTML = `
+    <div class="eyebrow">Your Nilus University</div>
+    <h1 class="heading">${week.title}</h1>
+
+    <div class="pill-group-label">Explore more of Nilus Uni</div>
+    <div class="pill-group" role="group" aria-label="Week navigation">${weekPills}</div>
+
+    <p class="page-sub">Track where you are, revisit anything you've already covered, and jump straight to what's next.</p>
+
+    <div class="sec-label">${week.label.replace('·', '—')}</div>
+
+    <div class="timeline-card" role="region" aria-label="Week timeline">
+      <div class="tl-track" id="tl-track">
+        <div class="tl-line-bg" aria-hidden="true"></div>
+        <div class="tl-line-fill" id="tl-fill" aria-hidden="true"></div>
+        ${tlItems}
+      </div>
+    </div>
+
+    <div class="sec-label">Day ${d} — ${day.theme}</div>
+
+    <div class="tasks-card" role="region" aria-label="Day ${d} tasks">
+      <div class="tasks-hd">
+        <span class="tasks-title">Your tasks for today</span>
+        <span class="tasks-badge${allDone ? ' done-all' : ''}" id="task-badge" aria-live="polite">
+          ${allDone ? 'All done ✓' : `${done} of ${total} done`}
+        </span>
+      </div>
+      <ul class="task-list" aria-label="Task checklist">${taskItems}</ul>
+    </div>
+
+    <div class="sec-label">Study Resources</div>
+    <div class="res-grid" role="list">${resCards}</div>
+  `;
+
+  // set timeline fill width
+  requestAnimationFrame(() => {
+    const fill = document.getElementById('tl-fill');
+    const track = document.getElementById('tl-track');
+    if (fill && track) {
+      const nodes = track.querySelectorAll('.tl-item');
+      if (nodes.length > 1) {
+        const firstR = nodes[0].getBoundingClientRect();
+        const lastR  = nodes[nodes.length-1].getBoundingClientRect();
+        const totalW = lastR.left - firstR.left;
+        fill.style.width = (fillFrac * totalW) + 'px';
+      }
+    }
+    // keyboard on timeline
+    track && track.querySelectorAll('.tl-item').forEach(el => {
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
+    });
+  });
+}
+
+/* ── ACTIONS ────────────────────────────────────────────── */
+function goDay(d) {
+  state.currentDay = d;
+  state._visitedOnce = true;
+  save();
+  renderSidebar();
+  renderPage();
+  document.getElementById('main').scrollTo(0, 0);
+}
+
+function toggleTask(d, i, checked) {
+  state.tasks[`${d}-${i}`] = checked;
+  save();
+  // update badge
+  const day = DAYS[d], done = dayDoneCount(d), total = day.tasks.length;
+  const allDone = done === total;
+  const badge = document.getElementById('task-badge');
+  if (badge) {
+    badge.textContent = allDone ? 'All done ✓' : `${done} of ${total} done`;
+    badge.className = 'tasks-badge' + (allDone ? ' done-all' : '');
+  }
+  renderSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('slim');
+}
+
+/* ── INIT ───────────────────────────────────────────────── */
+load();
+renderSidebar();
+renderPage();
+</script>
+</body>
+</html>
