@@ -2,11 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "menny_command_center.html",
+      "src": "*.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/onboarding-hub",
+      "dest": "/onboarding-hub.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/menny_command_center.html"
